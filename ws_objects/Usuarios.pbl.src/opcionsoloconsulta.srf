@@ -1,0 +1,46 @@
+﻿$PBExportHeader$opcionsoloconsulta.srf
+$PBExportComments$Valida si Opción del Menú es de Sólo Consulta para el usuario activo.
+global type opcionsoloconsulta from function_object
+end type
+
+forward prototypes
+global function boolean opcionsoloconsulta ()
+end prototypes
+
+global function boolean opcionsoloconsulta ();Boolean	lb_Retorno
+Integer	li_SoloConsulta
+String	ls_Usuario
+
+SELECT	usop_soloco
+	INTO	:li_SoloConsulta
+	FROM	dbo.usuaropcion
+	WHERE	sist_codigo	=	:gstr_apl.CodigoSistema
+	AND	grpo_codigo	=	:gstr_us.CodigoGrupo
+	AND	usua_codigo	=	'TODOS'
+	AND	usop_codmen	=	:gstr_us.OpcionActiva ;
+
+If sqlca.SQLCode = -1 Then
+	F_ErrorBaseDatos(sqlca, "Lectura de tabla OPCIONES DE USUARIO")
+ElseIf li_SoloConsulta = 1 Then
+	lb_Retorno	=	True
+Else
+	ls_Usuario	=	Upper(gstr_us.Nombre)
+	
+	SELECT	usop_soloco
+		INTO	:li_SoloConsulta
+		FROM	dbo.usuaropcion
+		WHERE	sist_codigo			=	:gstr_apl.CodigoSistema
+		AND	grpo_codigo				=	:gstr_us.CodigoGrupo
+		AND	Upper(usua_codigo)	=	:ls_Usuario
+		AND	usop_codmen			=	:gstr_us.OpcionActiva ;
+	
+	If sqlca.SQLCode = -1 Then
+		F_ErrorBaseDatos(sqlca, "Lectura de tabla OPCIONES DE USUARIO")
+	ElseIf li_SoloConsulta = 1 Then
+		lb_Retorno	=	True
+	End If
+End If
+
+Return lb_Retorno
+end function
+

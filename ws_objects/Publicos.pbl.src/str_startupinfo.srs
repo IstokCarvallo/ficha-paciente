@@ -1,0 +1,22 @@
+﻿$PBExportHeader$str_startupinfo.srs
+global type str_startupinfo from structure
+	long		cb
+	long		lpreserved
+	long		lpdesktop
+	long		lptitle
+	long		dwx
+	long		dwy
+	long		dwxsize
+	long		dwysize
+	long		dwxcountchars
+	long		dwycountchars
+	long		dwfillattribute
+	long		dwfllags
+	integer		wshowwindow
+	integer		cbreserved2
+	long		lpreserved2
+	long		hstdinput
+	long		hstdoutput
+	long		hstderror
+end type
+

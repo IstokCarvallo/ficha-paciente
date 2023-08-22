@@ -1,0 +1,11 @@
+﻿$PBExportHeader$str_osversioninfo.srs
+$PBExportComments$pp
+global type str_osversioninfo from structure
+	long		dwosversioninfosize
+	long		dwmajorversion
+	long		dwminorversion
+	long		dwbuilnumber
+	long		dwplatformid
+	character		szcsdversion[128]
+end type
+

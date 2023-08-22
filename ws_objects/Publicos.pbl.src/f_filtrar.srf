@@ -1,0 +1,20 @@
+﻿$PBExportHeader$f_filtrar.srf
+global type f_filtrar from function_object
+end type
+
+forward prototypes
+global function long f_filtrar (datawindow dw, string columna, string condicion)
+end prototypes
+
+global function long f_filtrar (datawindow dw, string columna, string condicion);Long	ll_fila
+DataWindowChild ldwc
+
+dw.GetChild(columna,ldwc)
+ldwc.SetTransObject(Sqlca)
+ldwc.Retrieve()
+ldwc.SetFilter(condicion)
+ll_fila = ldwc.Filter()
+
+RETURN ll_fila
+end function
+

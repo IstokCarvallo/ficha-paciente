@@ -1,0 +1,26 @@
+﻿$PBExportHeader$f_membrete.srf
+global type f_membrete from function_object
+end type
+
+forward prototypes
+global subroutine f_membrete (ref datawindow dw_1)
+end prototypes
+
+global subroutine f_membrete (ref datawindow dw_1);dw_1.Modify("raz_social.text = '" + gstr_apl.Razon_Social + "'")
+dw_1.Modify("nom_empresa.text = '" + gstr_apl.Nom_Empresa + "'")
+dw_1.Modify("rut_empresa.text = 'R.U.T. " + Trim( String( Double( Mid( gstr_apl.Rut_Empresa , 1, 9 ) ), &
+				'###,###,###') + '-' + Mid(gstr_apl.Rut_Empresa,10,1) + "'"))
+dw_1.Modify("dir_empresa.text = '" + gstr_apl.Dir_Empresa + "'")
+dw_1.Modify("tel_empresa.text = 'FONO " + gstr_apl.Tel_Empresa + "   FAX " + gstr_apl.Fax_Empresa + "'")
+dw_1.Modify("ciu_empresa.text = '" + Trim(gstr_apl.Ciu_Empresa) + " / " + Trim(gstr_apl.Com_Empresa) + "'")
+dw_1.Modify("gir_empresa.text = '" + gstr_apl.Gir_Empresa + "'")
+dw_1.Modify("referencia.text = '" + gstr_apl.Referencia + "'")
+dw_1.Modify("usuario.text = '" + gstr_us.Nombre + "'")
+dw_1.Modify("oficina.text = '" + gstr_apl.Oficina + "'")
+dw_1.Modify("replegal.text = '" + gstr_apl.Rep_Legal + "'")
+dw_1.Modify("rut_replegal.text = '" + Trim( String( Double( Mid( gstr_apl.Rut_RepLegal , 1, 9 ) ), &
+				'###,###,###') + '-' + Mid(gstr_apl.Rut_RepLegal, 10, 1) + "'"))
+
+RETURN
+end subroutine
+

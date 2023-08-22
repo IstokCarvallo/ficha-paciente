@@ -1,0 +1,7 @@
+Save Format v3.0(19990112)
+@begin Targets
+ 0 "Ficha\\Ficha.pbt";
+@end;
+DefaultTarget "Ficha\\Ficha.pbt";
+DefaultExportEncode "UTF-8";
+DefaultRemoteTarget "Ficha\\Ficha.pbt";

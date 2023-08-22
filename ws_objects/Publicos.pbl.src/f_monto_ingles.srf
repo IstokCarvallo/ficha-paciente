@@ -1,0 +1,56 @@
+﻿$PBExportHeader$f_monto_ingles.srf
+global type f_monto_ingles from function_object
+end type
+
+forward prototypes
+global function string f_monto_ingles (decimal monto)
+end prototypes
+
+global function string f_monto_ingles (decimal monto);//Función que interpreta un monto en palabras en Inglés ( Hasta 999.999.999.999.-)
+
+String Unidad[19]		= {"ONE","TWO","THREE","FOUR","FIVE","SIX","SEVEN","EIGHT","NINE", &
+								"TEN","ELEVEN","TWELVE","THIRTEEN","FORTEEN","FIVETEEN","SIXTEEN","SEVENTEEN", &
+								"EIGHTEEN","NINETEEN"}
+String Decena[9]		= {"TEN","TWENTY","THIRTY","FORTY","FIFTY","SIXTY","SEVENTY", &
+								"EIGHTY","NINETY"}
+String Miles[4]		= {"THOUSAND","MILLION","THOUSAND",""}
+
+String monto_letra = "", monto_ceros, cifra_parcial, centavos
+Integer	posicion, centenas, decenas, unidades, nro_decena
+
+monto_ceros = String(Truncate(monto,0),"000000000000")
+centavos		= String((monto - Double(monto_ceros))*100,'00')+'/100'
+
+FOR posicion = 1 TO 4
+	cifra_parcial = Mid(monto_ceros,posicion * 3 - 2, 3)
+	
+	centenas		= Integer(Mid(cifra_parcial,1,1))
+	decenas		= Integer(Mid(cifra_parcial,2,1))
+	unidades		= Integer(Mid(cifra_parcial,3,1))
+	nro_decena	= Integer(Mid(cifra_parcial,2,2))
+		
+	IF centenas > 0 THEN
+		monto_letra += unidad[centenas]+" HUNDRED "
+	END IF
+		
+	IF nro_decena >= 20 THEN
+		monto_letra += decena[decenas]+" "
+		IF unidades > 0 THEN
+			monto_letra += unidad[unidades]+" "
+		END IF
+	ELSEIF nro_decena > 0 THEN
+		monto_letra += unidad[nro_decena]+" "
+	END IF
+	
+	IF Integer(cifra_parcial) > 1 AND posicion = 2 THEN
+		monto_letra += "MILLIONS "
+	ELSEIF Integer(cifra_parcial) > 0 THEN
+		monto_letra += miles[posicion]+" "
+	END IF
+NEXT
+
+monto_letra += centavos
+
+RETURN Trim(monto_letra)
+end function
+

@@ -1,0 +1,645 @@
+﻿$PBExportHeader$m_principal.srm
+forward
+global type m_principal from m_sys_frame
+end type
+end forward
+global type m_principal from m_sys_frame
+end type
+global m_principal m_principal
+
+on m_principal.create
+m_principal=this
+call super::create
+end on
+
+on m_principal.destroy
+call super::destroy
+end on
+
+type m_file from m_sys_frame`m_file within m_principal
+end type
+
+on m_file.create
+call super::create
+end on
+
+on m_file.destroy
+call super::destroy
+end on
+
+type m_controldeaccesos from m_sys_frame`m_controldeaccesos within m_file
+end type
+
+on m_controldeaccesos.create
+call super::create
+end on
+
+on m_controldeaccesos.destroy
+call super::destroy
+end on
+
+type m_visordeaccesos from m_sys_frame`m_visordeaccesos within m_controldeaccesos
+end type
+
+on m_visordeaccesos.create
+call super::create
+end on
+
+on m_visordeaccesos.destroy
+call super::destroy
+end on
+
+type m_depuracióndeaccesos from m_sys_frame`m_depuracióndeaccesos within m_controldeaccesos
+end type
+
+on m_depuracióndeaccesos.create
+call super::create
+end on
+
+on m_depuracióndeaccesos.destroy
+call super::destroy
+end on
+
+type m_rayita2000 from m_sys_frame`m_rayita2000 within m_controldeaccesos
+end type
+
+on m_rayita2000.create
+call super::create
+end on
+
+on m_rayita2000.destroy
+call super::destroy
+end on
+
+type m_mantencióndeaccesos from m_sys_frame`m_mantencióndeaccesos within m_controldeaccesos
+end type
+
+on m_mantencióndeaccesos.create
+call super::create
+end on
+
+on m_mantencióndeaccesos.destroy
+call super::destroy
+end on
+
+type m_sucursalesyuadministrativas from m_sys_frame`m_sucursalesyuadministrativas within m_mantencióndeaccesos
+end type
+
+on m_sucursalesyuadministrativas.create
+call super::create
+end on
+
+on m_sucursalesyuadministrativas.destroy
+call super::destroy
+end on
+
+type m_accesodegruposalsistema from m_sys_frame`m_accesodegruposalsistema within m_mantencióndeaccesos
+end type
+
+on m_accesodegruposalsistema.create
+call super::create
+end on
+
+on m_accesodegruposalsistema.destroy
+call super::destroy
+end on
+
+type m_gruposyusuarios from m_sys_frame`m_gruposyusuarios within m_mantencióndeaccesos
+end type
+
+on m_gruposyusuarios.create
+call super::create
+end on
+
+on m_gruposyusuarios.destroy
+call super::destroy
+end on
+
+type m_rayita2003 from m_sys_frame`m_rayita2003 within m_mantencióndeaccesos
+end type
+
+on m_rayita2003.create
+call super::create
+end on
+
+on m_rayita2003.destroy
+call super::destroy
+end on
+
+type m_accesosdeusuarios from m_sys_frame`m_accesosdeusuarios within m_mantencióndeaccesos
+end type
+
+on m_accesosdeusuarios.create
+call super::create
+end on
+
+on m_accesosdeusuarios.destroy
+call super::destroy
+end on
+
+type m_rayita2002 from m_sys_frame`m_rayita2002 within m_controldeaccesos
+end type
+
+on m_rayita2002.create
+call super::create
+end on
+
+on m_rayita2002.destroy
+call super::destroy
+end on
+
+type m_informesdeaccesos from m_sys_frame`m_informesdeaccesos within m_controldeaccesos
+end type
+
+on m_informesdeaccesos.create
+call super::create
+end on
+
+on m_informesdeaccesos.destroy
+call super::destroy
+end on
+
+type m_informedesucursalesyuadministrativas from m_sys_frame`m_informedesucursalesyuadministrativas within m_informesdeaccesos
+end type
+
+on m_informedesucursalesyuadministrativas.create
+call super::create
+end on
+
+on m_informedesucursalesyuadministrativas.destroy
+call super::destroy
+end on
+
+type m_informedegruposyusuarios from m_sys_frame`m_informedegruposyusuarios within m_informesdeaccesos
+end type
+
+on m_informedegruposyusuarios.create
+call super::create
+end on
+
+on m_informedegruposyusuarios.destroy
+call super::destroy
+end on
+
+type m_informedesistemasygrupos from m_sys_frame`m_informedesistemasygrupos within m_informesdeaccesos
+end type
+
+on m_informedesistemasygrupos.create
+call super::create
+end on
+
+on m_informedesistemasygrupos.destroy
+call super::destroy
+end on
+
+type m_informedeaccesoalsistema from m_sys_frame`m_informedeaccesoalsistema within m_informesdeaccesos
+end type
+
+on m_informedeaccesoalsistema.create
+call super::create
+end on
+
+on m_informedeaccesoalsistema.destroy
+call super::destroy
+end on
+
+type m_informeaccesodeusuariosaaplicaciones from m_sys_frame`m_informeaccesodeusuariosaaplicaciones within m_informesdeaccesos
+end type
+
+on m_informeaccesodeusuariosaaplicaciones.create
+call super::create
+end on
+
+on m_informeaccesodeusuariosaaplicaciones.destroy
+call super::destroy
+end on
+
+type m_rayita2001 from m_sys_frame`m_rayita2001 within m_controldeaccesos
+end type
+
+on m_rayita2001.create
+call super::create
+end on
+
+on m_rayita2001.destroy
+call super::destroy
+end on
+
+type m_cambiodepassword from m_sys_frame`m_cambiodepassword within m_controldeaccesos
+end type
+
+on m_cambiodepassword.create
+call super::create
+end on
+
+on m_cambiodepassword.destroy
+call super::destroy
+end on
+
+type m_calculadora from m_sys_frame`m_calculadora within m_file
+end type
+
+on m_calculadora.create
+call super::create
+end on
+
+on m_calculadora.destroy
+call super::destroy
+end on
+
+type m_-0 from m_sys_frame`m_-0 within m_file
+end type
+
+on m_-0.create
+call super::create
+end on
+
+on m_-0.destroy
+call super::destroy
+end on
+
+type m_configurarimpresora from m_sys_frame`m_configurarimpresora within m_file
+end type
+
+on m_configurarimpresora.create
+call super::create
+end on
+
+on m_configurarimpresora.destroy
+call super::destroy
+end on
+
+type m_-1 from m_sys_frame`m_-1 within m_file
+end type
+
+on m_-1.create
+call super::create
+end on
+
+on m_-1.destroy
+call super::destroy
+end on
+
+type m_cerrarventanaactiva from m_sys_frame`m_cerrarventanaactiva within m_file
+end type
+
+on m_cerrarventanaactiva.create
+call super::create
+end on
+
+on m_cerrarventanaactiva.destroy
+call super::destroy
+end on
+
+type m_-2 from m_sys_frame`m_-2 within m_file
+end type
+
+on m_-2.create
+call super::create
+end on
+
+on m_-2.destroy
+call super::destroy
+end on
+
+type m_salirdelaaplicacin from m_sys_frame`m_salirdelaaplicacin within m_file
+end type
+
+on m_salirdelaaplicacin.create
+call super::create
+end on
+
+on m_salirdelaaplicacin.destroy
+call super::destroy
+end on
+
+type m_aplicacion from m_sys_frame`m_aplicacion within m_principal
+end type
+
+on m_aplicacion.create
+call super::create
+end on
+
+on m_aplicacion.destroy
+call super::destroy
+end on
+
+type m_movimientos from m_sys_frame`m_movimientos within m_principal
+end type
+
+on m_movimientos.create
+call super::create
+end on
+
+on m_movimientos.destroy
+call super::destroy
+end on
+
+type m_procesos from m_sys_frame`m_procesos within m_principal
+end type
+
+on m_procesos.create
+call super::create
+end on
+
+on m_procesos.destroy
+call super::destroy
+end on
+
+type m_informes from m_sys_frame`m_informes within m_principal
+end type
+
+on m_informes.create
+call super::create
+end on
+
+on m_informes.destroy
+call super::destroy
+end on
+
+type m_consultas from m_sys_frame`m_consultas within m_principal
+end type
+
+on m_consultas.create
+call super::create
+end on
+
+on m_consultas.destroy
+call super::destroy
+end on
+
+type m_topicactions from m_sys_frame`m_topicactions within m_principal
+end type
+
+on m_topicactions.create
+call super::create
+end on
+
+on m_topicactions.destroy
+call super::destroy
+end on
+
+type m_primerregistro from m_sys_frame`m_primerregistro within m_topicactions
+end type
+
+on m_primerregistro.create
+call super::create
+end on
+
+on m_primerregistro.destroy
+call super::destroy
+end on
+
+type m_registroanterior from m_sys_frame`m_registroanterior within m_topicactions
+end type
+
+on m_registroanterior.create
+call super::create
+end on
+
+on m_registroanterior.destroy
+call super::destroy
+end on
+
+type m_siguienteregistro from m_sys_frame`m_siguienteregistro within m_topicactions
+end type
+
+on m_siguienteregistro.create
+call super::create
+end on
+
+on m_siguienteregistro.destroy
+call super::destroy
+end on
+
+type m_ultimoregistro from m_sys_frame`m_ultimoregistro within m_topicactions
+end type
+
+on m_ultimoregistro.create
+call super::create
+end on
+
+on m_ultimoregistro.destroy
+call super::destroy
+end on
+
+type m_-45 from m_sys_frame`m_-45 within m_topicactions
+end type
+
+on m_-45.create
+call super::create
+end on
+
+on m_-45.destroy
+call super::destroy
+end on
+
+type m_buscarregistro from m_sys_frame`m_buscarregistro within m_topicactions
+end type
+
+on m_buscarregistro.create
+call super::create
+end on
+
+on m_buscarregistro.destroy
+call super::destroy
+end on
+
+type m_ordenar from m_sys_frame`m_ordenar within m_topicactions
+end type
+
+on m_ordenar.create
+call super::create
+end on
+
+on m_ordenar.destroy
+call super::destroy
+end on
+
+type m_-0001 from m_sys_frame`m_-0001 within m_topicactions
+end type
+
+on m_-0001.create
+call super::create
+end on
+
+on m_-0001.destroy
+call super::destroy
+end on
+
+type m_nuevoregistro from m_sys_frame`m_nuevoregistro within m_topicactions
+end type
+
+on m_nuevoregistro.create
+call super::create
+end on
+
+on m_nuevoregistro.destroy
+call super::destroy
+end on
+
+type m_búsquedadeinformación from m_sys_frame`m_búsquedadeinformación within m_topicactions
+end type
+
+on m_búsquedadeinformación.create
+call super::create
+end on
+
+on m_búsquedadeinformación.destroy
+call super::destroy
+end on
+
+type m_lectura from m_sys_frame`m_lectura within m_topicactions
+end type
+
+on m_lectura.create
+call super::create
+end on
+
+on m_lectura.destroy
+call super::destroy
+end on
+
+type m_grabainformación from m_sys_frame`m_grabainformación within m_topicactions
+end type
+
+on m_grabainformación.create
+call super::create
+end on
+
+on m_grabainformación.destroy
+call super::destroy
+end on
+
+type m_eliminainformación from m_sys_frame`m_eliminainformación within m_topicactions
+end type
+
+on m_eliminainformación.create
+call super::create
+end on
+
+on m_eliminainformación.destroy
+call super::destroy
+end on
+
+type m_imprimedocumento from m_sys_frame`m_imprimedocumento within m_topicactions
+end type
+
+on m_imprimedocumento.create
+call super::create
+end on
+
+on m_imprimedocumento.destroy
+call super::destroy
+end on
+
+type m_-0002 from m_sys_frame`m_-0002 within m_topicactions
+end type
+
+on m_-0002.create
+call super::create
+end on
+
+on m_-0002.destroy
+call super::destroy
+end on
+
+type m_agregadetalle from m_sys_frame`m_agregadetalle within m_topicactions
+end type
+
+on m_agregadetalle.create
+call super::create
+end on
+
+on m_agregadetalle.destroy
+call super::destroy
+end on
+
+type m_eliminadetalle from m_sys_frame`m_eliminadetalle within m_topicactions
+end type
+
+on m_eliminadetalle.create
+call super::create
+end on
+
+on m_eliminadetalle.destroy
+call super::destroy
+end on
+
+type m_window from m_sys_frame`m_window within m_principal
+end type
+
+on m_window.create
+call super::create
+end on
+
+on m_window.destroy
+call super::destroy
+end on
+
+type m_tile from m_sys_frame`m_tile within m_window
+end type
+
+on m_tile.create
+call super::create
+end on
+
+on m_tile.destroy
+call super::destroy
+end on
+
+type m_tilehorizontal from m_sys_frame`m_tilehorizontal within m_window
+end type
+
+on m_tilehorizontal.create
+call super::create
+end on
+
+on m_tilehorizontal.destroy
+call super::destroy
+end on
+
+type m_layer from m_sys_frame`m_layer within m_window
+end type
+
+on m_layer.create
+call super::create
+end on
+
+on m_layer.destroy
+call super::destroy
+end on
+
+type m_cascade from m_sys_frame`m_cascade within m_window
+end type
+
+on m_cascade.create
+call super::create
+end on
+
+on m_cascade.destroy
+call super::destroy
+end on
+
+type m_help from m_sys_frame`m_help within m_principal
+end type
+
+on m_help.create
+call super::create
+end on
+
+on m_help.destroy
+call super::destroy
+end on
+
+type m_about from m_sys_frame`m_about within m_help
+end type
+
+on m_about.create
+call super::create
+end on
+
+on m_about.destroy
+call super::destroy
+end on
+

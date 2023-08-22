@@ -1,0 +1,22 @@
+﻿$PBExportHeader$f_insertamenu.srf
+global type f_insertamenu from function_object
+end type
+
+forward prototypes
+global subroutine f_insertamenu (ref datastore dw_2, long al_codmenu, string as_nommenu, string as_datmenu)
+end prototypes
+
+global subroutine f_insertamenu (ref datastore dw_2, long al_codmenu, string as_nommenu, string as_datmenu);Integer	li_fila
+
+li_fila 	= 	dw_2.Find("sist_codigo = " + String(gstr_apl.codigosistema) + " AND " + &
+						 	 "amsi_menniv = " + String(al_codmenu), 1, dw_2.RowCount())
+IF li_fila = 0 THEN
+	li_fila	=	dw_2.InsertRow(0)
+END IF
+
+dw_2.Object.sist_codigo[li_fila]	=	gstr_apl.codigosistema
+dw_2.Object.amsi_menniv[li_fila]	=	al_codmenu
+dw_2.Object.amsi_mennom[li_fila]	=	as_nommenu
+dw_2.Object.amsi_mendat[li_fila]	=	as_datmenu
+end subroutine
+

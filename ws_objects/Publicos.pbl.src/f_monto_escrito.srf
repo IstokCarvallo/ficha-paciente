@@ -1,0 +1,68 @@
+﻿$PBExportHeader$f_monto_escrito.srf
+global type f_monto_escrito from function_object
+end type
+
+forward prototypes
+global function string f_monto_escrito (double monto)
+end prototypes
+
+global function string f_monto_escrito (double monto);//Función que interpreta un monto en palabras ( Hasta 999.999.999.999.-)
+
+String Unidad[19]		= {"UN","DOS","TRES","CUATRO","CINCO","SEIS","SIETE","OCHO","NUEVE", &
+								"DIEZ","ONCE","DOCE","TRECE","CATORCE","QUINCE","DIECISEIS","DIECISIETE", &
+								"DIECIOCHO","DIECINUEVE"}
+String Decena[9]		= {"DIEZ","VEINTE","TREINTA","CUARENTA","CINCUENTA","SESENTA","SETENTA", &
+								"OCHENTA","NOVENTA"}
+String Centena[9]		= {"C","DOSC","TRESC","CUATROC","QUIN","SEISC","SETEC","OCHOC","NOVEC"}
+String Miles[4]		= {"UN MIL ","UN MILLON ", "UN MIL ", "UNO "}
+String Final[4]		= {"MIL ","MILLONES ", "MIL ",""}
+
+String 	monto_letra = "", monto_ceros, cifra_parcial
+Integer	posicion, centenas, decenas, unidades, nro_decena
+
+monto_ceros = String(monto,"000000000000")
+
+FOR posicion = 1 TO 4
+	cifra_parcial = Mid(monto_ceros,posicion * 3 - 2, 3)
+	
+	IF Integer(cifra_parcial) = 1 THEN
+		monto_letra += miles[posicion]
+	ELSEIF Integer(cifra_parcial) > 1 THEN
+		centenas		=	Integer(Mid(cifra_parcial,1,1))
+		decenas		=	Integer(Mid(cifra_parcial,2,1))
+		unidades		=	Integer(Mid(cifra_parcial,3,1))
+		nro_decena	=	Integer(Mid(cifra_parcial,2,2))
+		
+		IF centenas = 1 THEN
+			IF nro_decena = 0 THEN
+				monto_letra	+=	"CIEN "
+			ELSE
+				monto_letra +=	"CIENTO "
+			END IF
+		ELSEIF centenas > 1 THEN
+			monto_letra += centena[centenas] + "IENTOS "
+		END IF
+		
+		IF nro_decena >= 20 THEN
+			monto_letra += decena[decenas] + " "
+			
+			IF unidades > 0 THEN
+				monto_letra += "Y " + unidad[unidades] + " "
+			END IF
+		ELSEIF nro_decena > 0 THEN
+			monto_letra +=	unidad[nro_decena] + " "
+		END IF
+		
+		IF unidades = 1 AND posicion = 4 AND nro_decena > 11 THEN
+			monto_letra = Trim(monto_letra) + "O"
+		ELSE
+			monto_letra += Final[posicion]
+		END IF
+	ELSEIF Integer(cifra_parcial) = 0 AND posicion = 2 AND monto > 0 AND monto_letra <> "" THEN
+		monto_letra += "MILLONES"
+	END IF
+NEXT
+
+RETURN Trim(monto_letra)
+end function
+

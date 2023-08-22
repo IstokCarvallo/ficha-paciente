@@ -1,0 +1,29 @@
+﻿$PBExportHeader$f_diferenciameses.srf
+$PBExportComments$Entrega Diferencia en Meses entre dos Fechas.
+global type f_diferenciameses from function_object
+end type
+
+forward prototypes
+global function integer f_diferenciameses (date ad_inicio, date ad_termino)
+end prototypes
+
+global function integer f_diferenciameses (date ad_inicio, date ad_termino);Integer	li_AnoInicio, li_AnoTermino, li_MesInicio, li_MesTermino, li_Diferencia
+
+li_AnoInicio	=	Year(ad_Inicio)
+li_MesInicio	=	Month(ad_Inicio)
+li_AnoTermino	=	Year(ad_Termino)
+li_MesTermino	=	Month(ad_Termino)
+
+IF li_AnoTermino > li_AnoInicio THEN
+	li_Diferencia	=	(li_AnoTermino * 100 + li_MesTermino) - &
+							((li_AnoInicio * 100 + li_MesInicio) + &
+							88 * (li_AnoTermino - li_AnoInicio) + &
+							12 * (li_AnoTermino - li_AnoInicio - 1))
+ELSE
+	li_Diferencia	=	(li_AnoTermino * 100 + li_MesTermino) - &
+							(li_AnoInicio * 100 + li_MesInicio) + 1
+END IF
+
+RETURN li_Diferencia
+end function
+

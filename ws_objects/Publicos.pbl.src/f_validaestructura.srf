@@ -1,0 +1,69 @@
+﻿$PBExportHeader$f_validaestructura.srf
+global type f_validaestructura from function_object
+end type
+
+forward prototypes
+global function boolean f_validaestructura (string codigo, string mascara, string columna, ref datawindow dw_1)
+end prototypes
+
+global function boolean f_validaestructura (string codigo, string mascara, string columna, ref datawindow dw_1);/* Función de Validación Código Estado de Situación
+	Objetivo	: Chequea códigos ingresados respecto de la máscara definida
+	codigo	: Código ingresado a validar
+	
+	Parámetros	:	codigo	=> String con código ingresado
+						mascara	=> String con máscara del código (estructura)
+						columna	=>	String con nombre de columna
+						dw_1		=> DataWindow donde se está validando la estructura y
+										donde se encuentran niveles anteriores
+*/
+	
+Integer	li_nivel[], li_niveles, li_contador, li_largo_cod, li_cod_mens
+Boolean	lb_condicion 
+String	ls_mensaje[], ls_codigo, ls_codigo_ant
+
+ls_mensaje[1]	= "Código ingresado no corresponde a la estructura~ndefinida : " + mascara + &
+						". Ingrese otro código."
+ls_mensaje[2]	= "Falta ingresar nivele(s) anterior(es) para este código,~nIngreselos previamente."
+
+//Determina Niveles de máscara
+FOR li_contador = 1 to len(mascara)
+	IF Mid(mascara, li_contador, 1) = "." THEN
+		li_niveles ++
+		li_nivel[li_niveles] = li_largo_cod
+	ELSE
+		li_largo_cod ++
+	END IF
+NEXT
+
+// Determina Validez de código recibido y si fueron ingresados los niveles anteriores
+li_nivel[li_niveles + 1]	= li_largo_cod
+li_contador						= 1
+
+DO
+	lb_condicion = False
+	
+	IF Len(Trim(codigo)) < li_nivel[li_contador] THEN
+		li_cod_mens		= 1
+	ELSEIF Len(Trim(codigo)) = li_nivel[li_contador] THEN
+		IF li_contador > 1 THEN
+			ls_codigo_ant = Mid(codigo,1,li_nivel[li_contador - 1])
+			ls_codigo_ant = ls_codigo_ant + Fill(' ', li_largo_cod - Len(ls_codigo_ant))
+
+			IF dw_1.Find(columna + " = '" + ls_codigo_ant + "'", 1, dw_1.RowCount()) = 0 THEN
+				li_cod_mens = 2
+			END IF
+		END IF
+	ELSE
+		li_contador ++
+		lb_condicion = True
+	END IF
+LOOP WHILE lb_condicion
+				
+IF li_cod_mens > 0 THEN
+	MessageBox("Error en Código", ls_mensaje[li_cod_mens], StopSign!, Ok!)
+	RETURN True
+ELSE
+	RETURN False
+END IF
+end function
+

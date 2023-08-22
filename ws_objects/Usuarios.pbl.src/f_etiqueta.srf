@@ -1,0 +1,17 @@
+﻿$PBExportHeader$f_etiqueta.srf
+global type f_etiqueta from function_object
+end type
+
+forward prototypes
+global function string f_etiqueta (string as_texto)
+end prototypes
+
+global function string f_etiqueta (string as_texto);IF as_Texto = "-" THEN
+	as_Texto	=	"__________________________"
+ELSE
+	as_Texto	=	F_Global_Replace(as_Texto, "&", "")
+END IF
+
+RETURN as_Texto
+end function
+

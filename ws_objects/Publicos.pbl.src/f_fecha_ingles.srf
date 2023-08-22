@@ -1,0 +1,43 @@
+﻿$PBExportHeader$f_fecha_ingles.srf
+global type f_fecha_ingles from function_object
+end type
+
+forward prototypes
+global function string f_fecha_ingles (any fecha)
+end prototypes
+
+global function string f_fecha_ingles (any fecha);String	ls_fecha, ls_terminacion, ls_term[] = {'st','nd','rd','th'}
+Integer	li_dia, li_mes, li_ano, li_dia1, li_dia2
+Date		ld_fecha
+
+CHOOSE CASE ClassName(fecha)
+	CASE "date"
+		ld_fecha = fecha
+	CASE "datetime"
+		ld_fecha = Date(fecha)
+	CASE "string"
+		ld_fecha = Date(Mid(String(fecha),1,10))
+END CHOOSE
+
+li_dia1	= Integer(Mid(String(Day(ld_fecha),'00'),1,1))
+li_dia2	= Integer(Mid(String(Day(ld_fecha),'00'),2,1))
+li_dia 	= Day(ld_fecha)
+li_mes 	= Month(ld_fecha)
+li_ano 	= Year(ld_fecha)
+
+IF li_dia1 <> 1 THEN
+	CHOOSE CASE li_dia2
+		CASE 1,2,3
+			ls_terminacion = ls_term[li_dia2]
+		CASE ELSE
+			ls_terminacion = ls_term[4]
+	END CHOOSE
+ELSE
+	ls_terminacion = ls_term[4]
+END IF
+
+ls_fecha = Upper(String(ld_fecha,'mmmm'))+' '+String(li_dia,'00')+ls_terminacion+', '+String(li_ano,'0000')
+
+RETURN ls_fecha
+end function
+

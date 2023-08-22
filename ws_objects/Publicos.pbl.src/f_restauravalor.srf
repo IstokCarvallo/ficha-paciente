@@ -1,0 +1,55 @@
+﻿$PBExportHeader$f_restauravalor.srf
+global type f_restauravalor from function_object
+end type
+
+forward prototypes
+global subroutine f_restauravalor (long al_fila, string as_columna, ref datawindow adw_1)
+end prototypes
+
+global subroutine f_restauravalor (long al_fila, string as_columna, ref datawindow adw_1);String			ls_ValorOriginal, ls_TipoColumna
+dwItemStatus	lis_EstadoColumna, lis_EstadoFila
+
+lis_EstadoFila		=	adw_1.GetItemStatus(al_Fila, 0, Primary!)
+lis_EstadoColumna	=	adw_1.GetItemStatus(al_Fila, as_Columna, Primary!)
+ls_TipoColumna		=	adw_1.Describe(as_Columna + ".coltype")
+
+CHOOSE CASE ls_TipoColumna
+	CASE "number"
+		ls_ValorOriginal	=	String(adw_1.GetItemNumber(al_Fila, as_Columna, Primary!, True))
+		
+		adw_1.AcceptText()
+		adw_1.SetItem(al_Fila, as_Columna, Dec(ls_ValorOriginal))
+
+	CASE "date"
+		ls_ValorOriginal	=	String(adw_1.GetItemDate(al_Fila, as_Columna, Primary!, True), 'dd/mm/yyyy')
+		
+		adw_1.AcceptText()
+		adw_1.SetItem(al_Fila, as_Columna, Date(ls_ValorOriginal))
+		
+	CASE "time"
+		ls_ValorOriginal	=	String(adw_1.GetItemTime(al_Fila, as_Columna, Primary!, True), '##:##:##')
+		
+		adw_1.AcceptText()
+		adw_1.SetItem(al_Fila, as_Columna, Time(ls_ValorOriginal))
+		
+	CASE "datetime"
+		ls_ValorOriginal	=	String(adw_1.GetItemDateTime(al_Fila, as_Columna, Primary!, True), 'dd/mm/yyyy ##:##:##')
+		
+		adw_1.AcceptText()
+		adw_1.SetItem(al_Fila, as_Columna, DateTime(ls_ValorOriginal))
+	CASE ELSE
+		IF Upper(left(ls_TipoColumna, 4)) = "CHAR" THEN
+			ls_ValorOriginal	=	adw_1.GetItemString(al_Fila, as_Columna, Primary!, True)
+		
+			adw_1.AcceptText()
+			adw_1.SetItem(al_Fila, as_Columna, ls_ValorOriginal)
+		END IF
+		
+END CHOOSE
+
+adw_1.SetItemStatus(al_Fila, as_Columna, Primary!, lis_EstadoColumna)
+adw_1.SetItemStatus(al_Fila, 0, Primary!, lis_EstadoFila)
+
+RETURN
+end subroutine
+

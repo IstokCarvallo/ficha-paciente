@@ -1,0 +1,59 @@
+﻿$PBExportHeader$f_verrut.srf
+$PBExportComments$Will parse a string into an array of elements denoted~r~nby the passed separator.  The number of elements parsed is the return value of the function.
+global type f_verrut from function_object
+end type
+
+forward prototypes
+global function string f_verrut (string as_nrorut, boolean ab_mensaje)
+end prototypes
+
+global function string f_verrut (string as_nrorut, boolean ab_mensaje);/* Función de VerIficación R.U.T.
+	Recibe		:	String 	as_NroRut		largo máximo 10 caracteres y mínimo 2
+						Boolean	ab_Mensaje		Verdadero => despliega ab_Mensaje de Error
+						
+	Devuelve		:	R.U.T. formateado en 10 caracteres si es válido, de lo contrario devuelve lavariable como ""
+*/
+If Len(as_NroRut) > 10 OR Len(as_NroRut) < 2 Then RETURN ""
+
+Long		ll_valor, ll_resto, i
+Integer	li_verIf = 2, li_digito
+String	ls_digito, ls_digve
+
+as_NroRut	= Trim(as_NroRut)
+ls_digve	= Mid(as_NroRut,Len(as_NroRut),1)
+as_NroRut	= Mid(as_NroRut,1,Len(as_NroRut) - 1)
+
+FOR i = Len(as_NroRut) TO 1 STEP -1
+	li_digito	= Integer(Mid(as_NroRut,i,1)) * li_verIf
+	ll_valor		+= li_digito
+	li_verIf		++
+	If li_verIf = 8 Then li_verIf = 2
+NEXT
+
+ll_resto	= mod(ll_valor,11)
+ll_valor	= ll_valor / 11
+
+If ll_resto = 0 Then
+	ls_digito = "0"
+Else
+	ll_valor = 11 - ll_resto
+	
+	If ll_valor = 10 Then
+		ls_digito = "K"
+	ElseIf ll_valor = 11 Then
+		ls_digito = "0"
+	Else
+		ls_digito = String(ll_valor)
+	End If
+End If
+
+If ls_digito = ls_digve Then
+	as_NroRut	= String(Double(as_NroRut),"000000000") + ls_digito
+Else
+	as_NroRut	= ""
+	If ab_Mensaje Then MessageBox("Error de Validación", "Dígito VerIficador Erróneo. Ingréselo nuevamente.", StopSign!, Ok!)
+End If
+
+RETURN as_NroRut
+end function
+

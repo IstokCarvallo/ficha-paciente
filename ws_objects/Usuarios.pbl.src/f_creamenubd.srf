@@ -1,0 +1,71 @@
+﻿$PBExportHeader$f_creamenubd.srf
+global type f_creamenubd from function_object
+end type
+
+forward prototypes
+global subroutine f_creamenubd (ref datastore dw_2)
+end prototypes
+
+global subroutine f_creamenubd (ref datastore dw_2);Integer		li_Nivel1, li_Nivel2, li_Nivel3, li_Nivel4, li_Nivel5
+Long			ll_menuitem1, ll_menuitem2, ll_menuitem3, ll_menuitem4, ll_menuitem5, li_filadw
+Menu			im_menu
+
+im_menu 				= 	m_principal
+
+SetPointer(HourGlass!)
+
+dw_2.Retrieve(gstr_apl.codigosistema)
+
+FOR li_Nivel1 = 2 TO UpperBound(im_menu.Item[])
+	IF im_menu.Item[li_Nivel1].Visible THEN		
+		ll_menuItem1							=	li_nivel1 * 100000000
+		f_InsertaMenu(dw_2, ll_menuItem1, f_etiqueta(im_menu.Item[li_Nivel1].Text), im_menu.Item[li_Nivel1].ClassName())
+		
+		IF Pos("m_window%%m_help%%m_topicactions", im_menu.Item[li_Nivel1].ClassName()) = 0 THEN
+			IF UpperBound(im_menu.Item[li_Nivel1].Item[]) > 0  THEN
+				FOR li_Nivel2 = 1 TO UpperBound(im_menu.Item[li_Nivel1].Item[])
+					IF im_menu.Item[li_Nivel1].Item[li_Nivel2].Visible THEN
+						ll_menuItem2							=	ll_menuItem1 + li_nivel2 * 1000000
+						f_InsertaMenu(dw_2, ll_menuItem2, f_etiqueta(im_menu.Item[li_Nivel1].Item[li_Nivel2].Text), im_menu.Item[li_Nivel1].Item[li_Nivel2].ClassName())
+
+						IF UpperBound(im_menu.Item[li_Nivel1].Item[li_Nivel2].Item[]) > 0  THEN
+							FOR li_Nivel3 = 1 TO UpperBound(im_menu.Item[li_Nivel1].Item[li_Nivel2].Item[])
+								IF im_menu.Item[li_Nivel1].Item[li_Nivel2].Item[li_Nivel3].Visible THEN
+									ll_menuItem3							=	ll_menuItem2 + li_nivel3 * 10000
+									f_InsertaMenu(dw_2, ll_menuItem3, f_etiqueta(im_menu.Item[li_Nivel1].Item[li_Nivel2].Item[li_Nivel3].Text), im_menu.Item[li_Nivel1].Item[li_Nivel2].Item[li_Nivel3].ClassName())
+									
+									IF UpperBound(im_menu.Item[li_Nivel1].Item[li_Nivel2].Item[li_Nivel3].Item[]) > 0  THEN		
+										FOR li_Nivel4 = 1 TO UpperBound(im_menu.Item[li_Nivel1].Item[li_Nivel2].Item[li_Nivel3].Item[])
+											IF im_menu.Item[li_Nivel1].Item[li_Nivel2].Item[li_Nivel3].Item[li_Nivel4].Visible THEN
+												ll_menuItem4									=	ll_menuItem3 + li_nivel4 * 100
+												f_InsertaMenu(dw_2, ll_menuItem4, f_etiqueta(im_menu.Item[li_Nivel1].Item[li_Nivel2].Item[li_Nivel3].Item[li_Nivel4].Text), im_menu.Item[li_Nivel1].Item[li_Nivel2].Item[li_Nivel3].Item[li_Nivel4].ClassName())
+												
+												IF UpperBound(im_menu.Item[li_Nivel1].Item[li_Nivel2].Item[li_Nivel3].Item[li_Nivel4].Item[]) > 0  THEN		
+													FOR li_Nivel5 = 1 TO UpperBound(im_menu.Item[li_Nivel1].Item[li_Nivel2].Item[li_Nivel3].Item[li_Nivel4].Item[li_Nivel5].Item[])
+														ll_menuItem5							=	ll_menuItem4 + li_nivel5 * 100
+														f_InsertaMenu(dw_2, ll_menuItem5, f_etiqueta(im_menu.Item[li_Nivel1].Item[li_Nivel2].Item[li_Nivel3].Item[li_Nivel4].Item[li_Nivel5].Text), im_menu.Item[li_Nivel1].Item[li_Nivel2].Item[li_Nivel3].Item[li_Nivel4].Item[li_Nivel5].ClassName())														
+													NEXT
+												END IF
+												
+											END IF
+										NEXT
+									END IF
+									
+								END IF
+							NEXT
+						END IF
+						
+					END IF
+				NEXT
+			END IF
+			
+		END IF
+	END IF
+NEXT
+
+dw_2.Update(true, True)
+
+Commit;
+
+end subroutine
+

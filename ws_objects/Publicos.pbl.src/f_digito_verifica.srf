@@ -1,0 +1,37 @@
+﻿$PBExportHeader$f_digito_verifica.srf
+global type f_digito_verifica from function_object
+end type
+
+forward prototypes
+global function character f_digito_verifica (long al_rut)
+end prototypes
+
+global function character f_digito_verifica (long al_rut);Long		ll_valor, ll_resto, i
+Integer	li_verif = 2, li_digito
+String	ls_digito
+
+for i = len(string(al_rut)) to 1 step -1
+	li_digito = integer(mid(lefttrim(string(al_rut)),i,1)) * li_verif
+	ll_valor = ll_valor + li_digito
+	li_verif++
+	if li_verif = 8 then li_verif = 2
+next
+
+ll_resto = mod(ll_valor,11)
+ll_valor = ll_valor / 11
+
+if ll_resto = 0 then
+	ls_digito = "0"
+else
+	ll_valor = 11 - ll_resto
+	if ll_valor = 10 then
+		ls_digito = "K"
+	elseif ll_valor = 11 then
+		ls_digito = "0"
+	else
+		ls_digito = string(ll_valor)
+	end if
+end if
+return ls_digito
+end function
+

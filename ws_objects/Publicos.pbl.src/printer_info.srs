@@ -1,0 +1,25 @@
+﻿$PBExportHeader$printer_info.srs
+global type printer_info from structure
+	string		pservername
+	string		pprintername
+	string		psharename
+	string		pportname
+	string		pdrivername
+	string		pcomment
+	string		plocation
+	long		pdevmode
+	string		psepfile
+	string		pprintprocessor
+	string		pdatatype
+	string		pparameters
+	long		psecuritydescriptor
+	long		attributes
+	long		priority
+	long		defaultpriority
+	long		starttime
+	long		untiltime
+	long		status
+	long		jobscount
+	long		averageppm
+end type
+

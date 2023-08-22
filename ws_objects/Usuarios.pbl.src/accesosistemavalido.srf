@@ -1,0 +1,68 @@
+﻿$PBExportHeader$accesosistemavalido.srf
+$PBExportComments$Valida Acceso a Sistema del Usuario por medio del Grupo al que Pertenece.
+global type accesosistemavalido from function_object
+end type
+
+forward prototypes
+global function boolean accesosistemavalido ()
+end prototypes
+
+global function boolean accesosistemavalido ();Boolean		lb_Retorno
+
+lb_Retorno	= True
+
+
+/*
+Sin lanzador
+*/
+SELECT	usua_nombre, isnull(usua_admini,1), IsNull(adsu_codigo, 1)
+	INTO	:gstr_us.NombreUsuario, :gstr_us.Administrador, :gstr_us.sucursal
+	FROM	dbo.usuarios
+	WHERE	usua_codigo	=	:gstr_us.Nombre
+	USING SqlCa;
+	
+If sqlca.SQLCode = -1 Then
+	If sqlca.SQLDBCode = -141 Then
+		lb_Retorno	=	False
+	Else
+		F_ErrorBaseDatos(sqlca, "Lectura Tabla de Ususarios")
+	End If
+ElseIf sqlca.SQLCode = 100 Then
+	MessageBox("Acceso a Sistema", "Usuario " + gstr_us.Nombre + ", no ha sido creado.~r~rContáctese con Encargado de Sistema.", StopSign!, Ok!)
+	lb_Retorno	=	False
+Else
+	/*
+	Valida Grupo Usuario
+	*/
+	SELECT	gu.grpo_codigo, gs.grpo_nombre
+			INTO	:gstr_us.CodigoGrupo, :gstr_us.NombreGrupo
+			FROM	dbo.grupousuario as gu, dbo.gruposistema as gs
+			WHERE	gu.sist_codigo	=	:gstr_apl.CodigoSistema
+			AND	gu.usua_codigo	=	:gstr_us.Nombre
+			AND	gs.sist_codigo	=	:gstr_apl.CodigoSistema
+			AND	gs.grpo_codigo	=	gu.grpo_codigo
+		USING Sqlca;
+		
+	If sqlca.SQLCode = -1 Then
+		If sqlca.SQLDBCode = -141 Then
+			lb_Retorno	=	True
+		Else
+			F_ErrorBaseDatos(sqlca, "Lectura Tabla de Acceso a Sistemas")
+			lb_Retorno	=	False
+		End If
+	ElseIf sqlca.SQLCode = 100 Then
+		MessageBox("Acceso a Sistema", "Usuario " + gstr_us.Nombre + &
+						"~r, no está asociado a Grupo alguno dentro de este Sistema." + &
+						"~r~rContáctese con Encargado de Sistema.", &
+						StopSign!, Ok!)
+		lb_Retorno	=	False
+	Else
+		lb_Retorno	=	True
+	End If
+End If
+
+RegistryGet("HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\ComputerName\ComputerName", "ComputerName", RegString!, gstr_us.Computador)
+
+Return lb_Retorno
+end function
+

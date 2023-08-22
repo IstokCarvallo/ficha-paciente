@@ -1,0 +1,41 @@
+﻿$PBExportHeader$f_asignafechayhora.srf
+global type f_asignafechayhora from function_object
+end type
+
+forward prototypes
+global subroutine f_asignafechayhora (string as_columnas[], long al_fila, datawindow ad_dw, transaction at_transaccion)
+end prototypes
+
+global subroutine f_asignafechayhora (string as_columnas[], long al_fila, datawindow ad_dw, transaction at_transaccion);/*
+	Columnas	:	as_Columna[1]	=	Fecha Digitación
+					as_Columna[2]	=	Hora Digitación
+					as_Columna[3]	=	Usuario Digitación
+					as_Columna[4]	=	Computador Digitación
+					as_Columna[5]	=	Fecha Modificación
+					as_Columna[6]	=	Hora Modificación
+					as_Columna[7]	=	Usuario Modificación
+					as_Columna[8]	=	Computador Modificación
+*/
+
+Date		ld_Fecha
+Time		lt_Hora
+Integer	li_Contador, li_Tipo = 0
+
+SELECT	Count(*), GetDate(), Now()
+	INTO	:li_Contador, :ld_Fecha, :lt_Hora
+	FROM	dba.admasistemas
+	USING	at_Transaccion ;
+
+IF ad_dw.GetItemStatus(al_Fila, 0, Primary!) = NotModified! OR &
+	ad_dw.GetItemStatus(al_Fila, 0, Primary!) = DataModified! THEN
+	li_Tipo	=	4
+END IF
+
+ad_dw.SetItem(al_Fila, as_Columnas[1 + li_Tipo], ld_Fecha)
+ad_dw.SetItem(al_Fila, as_Columnas[2 + li_Tipo], lt_Hora)
+ad_dw.SetItem(al_Fila, as_Columnas[3 + li_Tipo], gstr_Us.Nombre)
+ad_dw.SetItem(al_Fila, as_Columnas[4 + li_Tipo], gstr_Us.Computador)
+
+RETURN
+end subroutine
+

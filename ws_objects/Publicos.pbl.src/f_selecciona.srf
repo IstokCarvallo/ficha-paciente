@@ -1,0 +1,47 @@
+﻿$PBExportHeader$f_selecciona.srf
+global type f_selecciona from function_object
+end type
+
+forward prototypes
+global subroutine f_selecciona (datawindow dw_1, string as_tecla, long al_fila)
+end prototypes
+
+global subroutine f_selecciona (datawindow dw_1, string as_tecla, long al_fila);/*
+Función que Administra la Selección de Filas
+Argumentos :	dw_1			DataWindow donde gatilla la Función
+					as_tecla		Tecla que acompaña el Click
+					al_fila		Fila donde se hizo el Click
+*/
+Long		ll_filas, ll_filaini
+Integer	li_increm
+
+dw_1.SetRedraw(False)
+
+CHOOSE CASE as_tecla
+	CASE "Shift"
+		ll_filaini	=	dw_1.GetSelectedRow(0)
+		
+		IF ll_filaini = 0 THEN
+			dw_1.SelectRow(al_fila, Not dw_1.IsSelected(al_fila))
+		ELSE
+			li_increm	=	Sign(al_fila - ll_filaini)
+			ll_filaini 	+=	li_increm
+		
+			DO WHILE ll_filaini <> al_fila + li_increm
+				dw_1.SelectRow(ll_filaini, Not dw_1.IsSelected(al_fila))
+				ll_filaini 	+=	li_increm
+			LOOP
+		END IF
+		
+	CASE "Control"
+		IF al_fila > 0 THEN dw_1.SelectRow(al_fila, Not dw_1.IsSelected(al_fila))
+		
+	CASE ELSE
+		dw_1.SelectRow(0, False)
+		dw_1.SelectRow(al_fila, True)
+			
+END CHOOSE
+
+dw_1.SetRedraw(True)
+end subroutine
+

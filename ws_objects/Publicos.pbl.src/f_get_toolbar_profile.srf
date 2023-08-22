@@ -1,0 +1,46 @@
+﻿$PBExportHeader$f_get_toolbar_profile.srf
+$PBExportComments$Read in toolbar preferences from the registry or the example.ini file
+global type f_get_toolbar_profile from function_object
+end type
+
+forward prototypes
+global subroutine f_get_toolbar_profile (window aw_window, integer ai_defaultrow)
+end prototypes
+
+global subroutine f_get_toolbar_profile (window aw_window, integer ai_defaultrow);//////////////////////////////////////////////////////////////////////////////
+//
+//	Function:  		f_get_toolbar_profile
+//
+//	Access:  		public
+//
+//	Arguments:
+//	aw_Window			The window whose toolbars are being set.
+//	ai_DefaultRow		The row to place the toolbar on if no entry is found in
+//								the registry or ini file.
+//
+//	Returns:  		None.
+//
+//	Description: 	Set the current toolbar information.
+//
+//////////////////////////////////////////////////////////////////////////////
+
+String		ls_WindowName, ls_Visible, ls_Align, ls_X, ls_Y, ls_Width, ls_Height
+Integer		li_Indexes, li_Cnt, li_Index[]
+Boolean		lb_Visible, lb_Return
+ToolbarAlignment	lta_Alignment
+
+ls_WindowName = aw_Window.ClassName()
+
+// Get all the indexes for this window's menu
+li_Indexes = f_get_toolbar_indexes(aw_Window.Menuid, li_Index)
+
+// Set the values for each toolbar
+For li_Cnt = 1 To li_Indexes
+	aw_Window.SetToolbar(li_Index[li_Cnt], True, AlignAtTop!, ls_WindowName + String(li_Index[li_Cnt]))
+	aw_Window.SetToolbarPos(li_Index[li_Cnt], ai_DefaultRow, 1, False)
+Next
+
+Return
+
+end subroutine
+

@@ -1,0 +1,37 @@
+﻿$PBExportHeader$f_mes_largo.srf
+global type f_mes_largo from function_object
+end type
+
+forward prototypes
+global function string f_mes_largo (integer ai_mes)
+end prototypes
+
+global function string f_mes_largo (integer ai_mes);CHOOSE CASE ai_mes
+	CASE 1
+		return "Enero"
+	CASE 2
+		return "Febrero"
+	CASE 3
+		return "Marzo"
+	CASE 4
+		return "Abril"
+	CASE 5
+		return "Mayo"
+	CASE 6
+		return "Junio"
+	CASE 7
+		return "Julio"
+	CASE 8
+		return "Agosto"
+	CASE 9
+		return "Septiembre"
+	CASE 10
+		return "Octubre"
+	CASE 11
+		return "Noviembre"
+	CASE 12
+		return "Diciembre"
+END CHOOSE
+return " "
+end function
+

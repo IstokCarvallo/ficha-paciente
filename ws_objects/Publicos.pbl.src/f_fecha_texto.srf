@@ -1,0 +1,64 @@
+﻿$PBExportHeader$f_fecha_texto.srf
+global type f_fecha_texto from function_object
+end type
+
+forward prototypes
+global function string f_fecha_texto (string fecha, integer formato)
+end prototypes
+
+global function string f_fecha_texto (string fecha, integer formato);/*
+	Función que devuelve Fecha en formato especificado
+	
+	Argumentos	:	Fecha		=>	Fecha en String
+						Formato	=>	Formato en que se desea retornar Fecha
+										1	:	DD/MMM/AAAA
+										2	:	Nombre_Mes de AAAA
+										3	:	DD de Nombre_Mes, AAAA
+										4	:	Dias_Semana DD de Nombre_Mes, AAAA
+										5	:	Dia DD de Nombre_Mes, AAAA
+										6	:	Nombre_Mes DD de AAAA
+										7	:	DD de Nombre_Mes de AAAA
+*/
+
+String	ls_meslargo[] = {'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', &
+									'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'}
+String	ls_mescorto[] = {'Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'}
+String	ls_dialargo[] = {'Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'}
+String	ls_diacorto[] = {'Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'}
+String	ls_fecha
+Date		ld_fecha
+
+ld_fecha	= Date(fecha)
+
+IF IsDate(fecha) THEN
+
+	CHOOSE CASE formato
+			
+		CASE 1
+			ls_fecha	= String(Day(ld_fecha), "00") + "/" + ls_mescorto[Month(ld_fecha)] + "/" + &
+							String(Year(ld_fecha), "0000")
+		CASE 2
+			ls_fecha	= ls_meslargo[Month(ld_fecha)] + " de " + String(Year(ld_fecha), "0000")
+			
+		CASE 3
+			ls_fecha	= String(Day(ld_fecha), "00") + " de " + ls_meslargo[Month(ld_fecha)] + ", " + &
+							String(Year(ld_fecha), "0000")
+		CASE 4
+			ls_fecha	= ls_dialargo[DayNumber(ld_fecha)] + " " + String(Day(ld_fecha), "00") + " de " + &
+							ls_meslargo[Month(ld_fecha)] + ", " + String(Year(ld_fecha), "0000")
+		CASE 5
+			ls_fecha	= ls_diacorto[DayNumber(ld_fecha)] + " " + String(Day(ld_fecha), "00") + " de " + &
+							ls_meslargo[Month(ld_fecha)] + ", " + String(Year(ld_fecha), "0000")
+		CASE 6
+			ls_fecha	= ls_meslargo[Month(ld_fecha)] + " " + String(Day(ld_fecha), "00") + " de " + &
+							String(Year(ld_fecha), "0000")
+		CASE 7
+			ls_fecha	= String(Day(ld_fecha), "00") + " de " + ls_meslargo[Month(ld_fecha)] + " de " + &
+							String(Year(ld_fecha), "0000")
+		
+	END CHOOSE
+	
+END IF
+RETURN ls_fecha
+end function
+

@@ -1,0 +1,32 @@
+﻿$PBExportHeader$f_buscar.srf
+global type f_buscar from function_object
+end type
+
+forward prototypes
+global function boolean f_buscar (datawindow ad_dw, string as_info)
+end prototypes
+
+global function boolean f_buscar (datawindow ad_dw, string as_info);str_parms parm
+
+parm.string_arg[1]	= as_info
+parm.dw_arg				= ad_dw
+
+OpenWithParm(w_buscar,parm)
+
+as_info = message.StringParm
+
+IF IsNull(as_info) THEN RETURN True
+
+IF SetSort(ad_dw, as_info) = -1 THEN
+	MessageBox("Ordenamiento", "Desconocido tipo de Ordenamiento en " + ClassName(ad_dw)+" usando " + as_info)
+	RETURN False
+END IF
+
+IF Sort(ad_dw) = -1 THEN
+	MessageBox("Ordenamiento", "Desconocido tipo de Ordenamiento en " + ClassName(ad_dw))
+	RETURN False
+END IF
+
+RETURN True
+end function
+

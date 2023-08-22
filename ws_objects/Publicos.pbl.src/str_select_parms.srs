@@ -1,0 +1,11 @@
+﻿$PBExportHeader$str_select_parms.srs
+$PBExportComments$Used to pass parameters to w_dw_select window
+global type str_select_parms from structure
+    string sql
+    string title
+    string columns
+    datawindow dw
+    long row
+    boolean auto_query
+end type
+

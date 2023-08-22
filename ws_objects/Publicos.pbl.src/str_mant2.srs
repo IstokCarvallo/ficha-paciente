@@ -1,0 +1,17 @@
+﻿$PBExportHeader$str_mant2.srs
+$PBExportComments$Estructura de Mantención Encabezado con dos detalles
+global type str_mant2 from structure
+	string		argumento[]
+	datawindow		dw
+	datawindow		dw2
+	datawindow		dw3
+	boolean		agrega
+	boolean		borra
+	boolean		solo_consulta
+	integer		respuesta
+	string		tipo
+	boolean		usuariosoloconsulta
+	datawindow		dw4
+	datawindow		dwa[]
+end type
+

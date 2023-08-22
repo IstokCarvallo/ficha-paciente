@@ -1,0 +1,26 @@
+﻿$PBExportHeader$dw_mues_admausuarios_sistema_grupo.srd
+$PBExportComments$Muestra y Mantiene Usuarios para Sistemas
+release 8;
+datawindow(units=0 timer_interval=0 color=10789024 processing=0 HTMLDW=no print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+header(height=132 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=4 color="536870912" )
+detail(height=68 color="536870912" )
+table(column=(type=char(25) update=yes updatewhereclause=yes name=usua_codigo dbname="admausuarios.usua_codigo" )
+ column=(type=char(50) update=yes updatewhereclause=yes name=usua_nombre dbname="admausuarios.usua_nombre" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=adsu_codigo dbname="admausuarios.adsu_codigo" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=adun_codigo dbname="admausuarios.adun_codigo" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=usua_admini dbname="admausuarios.usua_admini" values="SI	1/NO	0/" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"dba.admausuarios~" )  TABLE(NAME=~"dba.admagrupousuario~" ) COLUMN(NAME=~"dba.admausuarios.usua_codigo~") COLUMN(NAME=~"dba.admausuarios.usua_nombre~") COLUMN(NAME=~"dba.admausuarios.adsu_codigo~") COLUMN(NAME=~"dba.admausuarios.adun_codigo~") COLUMN(NAME=~"dba.admausuarios.usua_admini~")    JOIN (LEFT=~"dba.admagrupousuario.usua_codigo~"    OP =~"=~"RIGHT=~"dba.admausuarios.usua_codigo~" )WHERE(    EXP1 =~"~~~"dba~~~".~~~"admagrupousuario~~~".~~~"sist_codigo~~~"~"   OP =~"=~"    EXP2 =~":Sistema~"    LOGIC =~"And~" ) WHERE(    EXP1 =~"~~~"dba~~~".~~~"admagrupousuario~~~".~~~"grpo_codigo~~~"~"   OP =~"=~"    EXP2 =~":Grupo~" ) ) ARG(NAME = ~"Grupo~" TYPE = number)  ARG(NAME = ~"Sistema~" TYPE = number) " arguments=(("Grupo", number),("Sistema", number)) )
+text(band=header alignment="0" text="text" border="6" color="0" x="2853" y="184" height="56" width="82" html.valueishtml="0"  name=t_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="12632256" )
+text(band=header alignment="2" text="
+Nombre" border="6" color="0" x="736" y="12" height="112" width="869" html.valueishtml="0"  name=usua_nombre_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="12632256" )
+text(band=header alignment="2" text="
+Código Usuario                          " border="6" color="0" x="133" y="12" height="112" width="585" html.valueishtml="0"  name=usua_codigo_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="12632256" )
+text(band=header alignment="2" text="
+Administrador" border="6" color="0" x="1623" y="12" height="112" width="402" html.valueishtml="0"  name=usua_admini_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="12632256" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="0" x="736" y="4" height="56" width="869" format="[general]" html.valueishtml="0"  name=usua_nombre visible="1" edit.limit=50 edit.case=any edit.format="" edit.autoselect=yes edit.nilisnull=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="0" x="133" y="4" height="56" width="585" format="[general]" html.valueishtml="0"  name=usua_codigo visible="1" edit.limit=25 edit.case=any edit.format="" edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=5 alignment="2" tabsequence=32766 border="0" color="0" x="1623" y="4" height="56" width="402" format="[general]" html.valueishtml="0"  name=usua_admini visible="1" ddlb.limit=1 ddlb.allowedit=yes ddlb.case=any ddlb.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" netscapelayers="0" )

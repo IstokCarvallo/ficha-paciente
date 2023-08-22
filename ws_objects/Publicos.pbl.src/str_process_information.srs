@@ -1,0 +1,9 @@
+﻿$PBExportHeader$str_process_information.srs
+$PBExportComments$Prueba
+global type str_process_information from structure
+	long		hprocess
+	long		hthread
+	long		dwprocessid
+	long		dwthreadid
+end type
+

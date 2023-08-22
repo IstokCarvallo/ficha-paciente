@@ -1,0 +1,58 @@
+﻿$PBExportHeader$grabaaccesoaplicacion.srf
+$PBExportComments$Actualiza tabla de Accesos por Usuario a Sistema.
+global type grabaaccesoaplicacion from function_object
+end type
+
+forward prototypes
+global subroutine grabaaccesoaplicacion (boolean ab_nuevo, ref date ad_fechaacceso, ref time at_horaacceso, string as_aplicacion, string as_accion, integer ai_estado)
+end prototypes
+
+global subroutine grabaaccesoaplicacion (boolean ab_nuevo, ref date ad_fechaacceso, ref time at_horaacceso, string as_aplicacion, string as_accion, integer ai_estado);Integer	li_Contador
+DateTime	ldt_HoraAcceso
+
+If ab_Nuevo Then
+
+	SELECT	Count(*), GetDate()
+		INTO	:li_Contador, :ldt_HoraAcceso
+		FROM	dbo.sistemas;
+		
+	as_Aplicacion = Mid(as_Aplicacion,1,50)
+		
+	INSERT INTO dbo.aplicacceso (sist_codigo, usua_codigo, apac_fechaa, apac_horaac,
+													apac_desapl, apac_accion, apac_estado)
+		VALUES (:gstr_apl.CodigoSistema, :gstr_us.Nombre, :ldt_HoraAcceso, :ldt_HoraAcceso, 
+					:as_Aplicacion, :as_Accion, :ai_Estado) ;
+	
+	If sqlca.SQLCode = -1 Then
+		If sqlca.SQLDBCode = -141 Then
+			Return
+		Else
+			F_ErrorBaseDatos(sqlca, "Inserción de registro en tabla Acceso a Aplicaciones")
+			Return
+		End If
+	Else
+		Commit ;
+	End If
+Else
+	UPDATE	dbo.aplicacceso SET
+		apac_fechas	=	GetDate(),
+		apac_horasa	=	GetDate(),
+		apac_estado	=	:ai_Estado
+		WHERE	sist_codigo	=	:gstr_apl.CodigoSistema
+		AND	usua_codigo	=	:gstr_us.Nombre
+		AND	apac_fechaa	=	:ldt_HoraAcceso
+		AND	apac_horaac =	:ldt_HoraAcceso ;
+
+	If sqlca.SQLCode = -1 Then
+		If sqlca.SQLDBCode = -141 Then
+			Return
+		Else
+			F_ErrorBaseDatos(sqlca, "Actualización de registro en tabla Acceso a Aplicaciones")
+			Return
+		End If
+	Else
+		Commit ;
+	End If
+End If
+end subroutine
+

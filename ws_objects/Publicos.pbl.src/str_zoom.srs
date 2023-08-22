@@ -1,0 +1,6 @@
+﻿$PBExportHeader$str_zoom.srs
+global type str_zoom from structure
+	integer		zoom
+	datawindow		idw_obj
+end type
+
