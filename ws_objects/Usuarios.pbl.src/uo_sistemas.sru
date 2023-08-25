@@ -16,10 +16,10 @@ Date flibe1,flibe2,flibe3
 end variables
 
 forward prototypes
-public function boolean existe (integer ai_codigo, string as_version, boolean ab_mensaje, transaction at_transaccion)
+public function boolean of_existe (integer ai_codigo, string as_version, boolean ab_mensaje, transaction at_transaccion)
 end prototypes
 
-public function boolean existe (integer ai_codigo, string as_version, boolean ab_mensaje, transaction at_transaccion);Boolean	lb_Retorno = True
+public function boolean of_existe (integer ai_codigo, string as_version, boolean ab_mensaje, transaction at_transaccion);Boolean	lb_Retorno = True
 
 SELECT	sist_codigo,sist_nombre,sist_abrevi,sist_versi1,sist_flibe1
 	INTO	:codigo, :nombre, :abrevi, :version1, :flibe1

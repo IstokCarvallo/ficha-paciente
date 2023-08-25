@@ -3,13 +3,11 @@ $PBExportComments$Informe de Sucursales y Unidades Administrativas.
 forward
 global type w_info_admasucursales from w_para_informes
 end type
-type cbx_todos from checkbox within w_info_admasucursales
-end type
 type st_2 from statictext within w_info_admasucursales
 end type
-type dw_sucursal from datawindow within w_info_admasucursales
-end type
 type st_3 from statictext within w_info_admasucursales
+end type
+type uo_selgrupo from uo_seleccion_gruposistemas within w_info_admasucursales
 end type
 type cbx_solosuc from checkbox within w_info_admasucursales
 end type
@@ -18,10 +16,9 @@ end forward
 global type w_info_admasucursales from w_para_informes
 integer width = 2345
 integer height = 1356
-cbx_todos cbx_todos
 st_2 st_2
-dw_sucursal dw_sucursal
 st_3 st_3
+uo_selgrupo uo_selgrupo
 cbx_solosuc cbx_solosuc
 end type
 global w_info_admasucursales w_info_admasucursales
@@ -35,38 +32,36 @@ end variables
 on w_info_admasucursales.create
 int iCurrent
 call super::create
-this.cbx_todos=create cbx_todos
 this.st_2=create st_2
-this.dw_sucursal=create dw_sucursal
 this.st_3=create st_3
+this.uo_selgrupo=create uo_selgrupo
 this.cbx_solosuc=create cbx_solosuc
 iCurrent=UpperBound(this.Control)
-this.Control[iCurrent+1]=this.cbx_todos
-this.Control[iCurrent+2]=this.st_2
-this.Control[iCurrent+3]=this.dw_sucursal
-this.Control[iCurrent+4]=this.st_3
-this.Control[iCurrent+5]=this.cbx_solosuc
+this.Control[iCurrent+1]=this.st_2
+this.Control[iCurrent+2]=this.st_3
+this.Control[iCurrent+3]=this.uo_selgrupo
+this.Control[iCurrent+4]=this.cbx_solosuc
 end on
 
 on w_info_admasucursales.destroy
 call super::destroy
-destroy(this.cbx_todos)
 destroy(this.st_2)
-destroy(this.dw_sucursal)
 destroy(this.st_3)
+destroy(this.uo_selgrupo)
 destroy(this.cbx_solosuc)
 end on
 
-event open;call super::open;dw_sucursal.GetChild("adsu_codigo", idwc_Sucursal)
-idwc_Sucursal.SetTransObject(sqlca)
-idwc_Sucursal.Retrieve()
+event open;call super::open;Boolean	lb_Cerrar = False
 
-dw_sucursal.InsertRow(0)
+If IsNull(uo_SelGrupo.Codigo) Then lb_Cerrar = True
 
-dw_sucursal.Enabled	= False
-dw_sucursal.Object.adsu_codigo.BackGround.Color	=	RGB(166,180,210)
-
-iuo_Sucursal	=	Create uo_Sucursal
+If lb_Cerrar Then
+	Close(This)
+Else	
+	uo_SelGrupo.of_Seleccion(True, False)
+	
+	uo_SelGrupo.of_Filtra(gstr_apl.CodigoSistema)
+End If
 end event
 
 type pb_excel from w_para_informes`pb_excel within w_info_admasucursales
@@ -106,31 +101,16 @@ OpenWithParm(vinf, istr_info)
 vinf.dw_1.DataObject = "dw_info_admaunidadadmini"
 vinf.dw_1.SetTransObject(sqlca)
 
-IF Not cbx_todos.Checked THEN
-	li_Sucursal	=	dw_sucursal.Object.adsu_codigo[1]
-END IF
+IF Not cbx_solosuc.Checked THEN li_UnidAdmini	=	1
 
-IF Not cbx_solosuc.Checked THEN
-	li_UnidAdmini	=	1
-END IF
-
-ll_Fila = vinf.dw_1.Retrieve(li_Sucursal, li_UnidAdmini)
+ll_Fila = vinf.dw_1.Retrieve(uo_SelGrupo.Codigo, li_UnidAdmini)
 
 IF ll_Fila = -1 THEN
-	MessageBox( "Error en Base de Datos", "Se ha producido un error en Base " + &
-					"de datos : ~n" + sqlca.SQLErrText, StopSign!, Ok!)
+	MessageBox( "Error en Base de Datos", "Se ha producido un error en Base de datos : ~n" + sqlca.SQLErrText, StopSign!, Ok!)
 ELSEIF ll_Fila = 0 THEN
-	MessageBox( "No Existe información", "No existe información para este informe.", &
-					StopSign!, Ok!)
+	MessageBox( "No Existe información", "No existe información para este informe.", StopSign!, Ok!)
 ELSE
 	F_Membrete(vinf.dw_1)
-	If gs_Ambiente = 'Windows' Then
-		vinf.dw_1.Modify('DataWindow.Print.Preview = Yes')
-		vinf.dw_1.Modify('DataWindow.Print.Preview.Zoom = 75')
-	
-		vinf.Visible	= True
-		vinf.Enabled	= True
-	End If
 END IF
 end event
 
@@ -138,41 +118,6 @@ type pb_salir from w_para_informes`pb_salir within w_info_admasucursales
 integer x = 1966
 integer y = 668
 end type
-
-type cbx_todos from checkbox within w_info_admasucursales
-integer x = 713
-integer y = 492
-integer width = 265
-integer height = 68
-boolean bringtotop = true
-integer textsize = -10
-integer weight = 700
-fontcharset fontcharset = ansi!
-fontpitch fontpitch = variable!
-fontfamily fontfamily = swiss!
-string facename = "Tahoma"
-long textcolor = 16777215
-long backcolor = 553648127
-string text = "Todos"
-boolean checked = true
-boolean righttoleft = true
-end type
-
-event clicked;IF This.Checked	THEN
-	dw_sucursal.Enabled										=	False
-	dw_sucursal.Object.adsu_codigo.BackGround.Color	=	RGB(213,213, 255)
-	
-	dw_sucursal.Reset()
-	dw_sucursal.InsertRow(0)
-ELSE
-	dw_sucursal.Enabled										=	True
-	dw_sucursal.Object.adsu_codigo.BackGround.Color	=	RGB(255, 255, 255)
-
-	dw_sucursal.GetChild("adsu_codigo", idwc_Sucursal)
-	idwc_Sucursal.SetTransObject(sqlca)
-	idwc_Sucursal.Retrieve(gstr_apl.CodigoSistema)
-END IF
-end event
 
 type st_2 from statictext within w_info_admasucursales
 integer x = 347
@@ -192,34 +137,6 @@ string text = "Grupos"
 boolean focusrectangle = false
 end type
 
-type dw_sucursal from datawindow within w_info_admasucursales
-integer x = 704
-integer y = 608
-integer width = 960
-integer height = 92
-integer taborder = 20
-boolean bringtotop = true
-boolean enabled = false
-string title = "none"
-string dataobject = "dddw_admasucursales"
-boolean border = false
-boolean livescroll = true
-end type
-
-event itemchanged;String	ls_Nula
-
-SetNull(ls_Nula)
-
-IF Not iuo_Sucursal.Existe(Integer(Data), True, sqlca) THEN
-	This.SetItem(1, "adsu_codigo", ls_Nula)
-	
-	RETURN 1
-END IF
-end event
-
-event itemerror;RETURN 1
-end event
-
 type st_3 from statictext within w_info_admasucursales
 integer x = 251
 integer y = 440
@@ -237,9 +154,22 @@ borderstyle borderstyle = styleraised!
 boolean focusrectangle = false
 end type
 
+type uo_selgrupo from uo_seleccion_gruposistemas within w_info_admasucursales
+event destroy ( )
+integer x = 645
+integer y = 520
+integer height = 180
+integer taborder = 100
+boolean bringtotop = true
+end type
+
+on uo_selgrupo.destroy
+call uo_seleccion_gruposistemas::destroy
+end on
+
 type cbx_solosuc from checkbox within w_info_admasucursales
-integer x = 1129
-integer y = 480
+integer x = 997
+integer y = 524
 integer width = 549
 integer height = 80
 boolean bringtotop = true

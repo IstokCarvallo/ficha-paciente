@@ -34,63 +34,17 @@ String  	Nombre, Version
 uo_Sistemas	iuo_Codigo
 
 
-end variables
+End variables
 
 forward prototypes
-public subroutine seleccion (boolean ab_todos, boolean ab_consolida)
-public subroutine todos (boolean ab_todos)
-public subroutine bloquear (boolean ab_opcion)
-public function boolean inicia (integer ai_codigo)
-public subroutine limpiardatos ()
+public subroutine of_bloquear (boolean ab_opcion)
+public function boolean of_inicia (integer ai_codigo)
+public subroutine of_limpiardatos ()
+public subroutine of_todos (boolean ab_todos)
+public subroutine of_seleccion (boolean ab_todos, boolean ab_consolida)
 end prototypes
 
-public subroutine seleccion (boolean ab_todos, boolean ab_consolida);cbx_Todos.Visible		=	ab_Todos
-cbx_Consolida.Visible	=	ab_Consolida
- 
-IF Not ab_Todos AND Not ab_Consolida THEN
-	dw_Seleccion.y				=	0
-	dw_Seleccion.Enabled	=	True
-	
-	dw_Seleccion.Object.Codigo.Color					=	0
-	dw_Seleccion.Object.codigo.BackGround.Color	=	RGB(255, 255, 255)
-ELSE
-	dw_Seleccion.y				=	84
-	dw_Seleccion.Enabled	=	False
-	
-	dw_Seleccion.Object.Codigo.Color					=	RGB(255, 255, 255)
-	dw_Seleccion.Object.codigo.BackGround.Color	=	553648127
-END IF
-end subroutine
-
-public subroutine todos (boolean ab_todos);IF ab_Todos THEN
-	Codigo						=	-1
-	Nombre						=	'Todos'
-	cbx_Todos.Checked		=	True
-	cbx_Consolida.Enabled	=	True
-	dw_Seleccion.Enabled	=	False
-	
-	dw_Seleccion.Object.Codigo.Color					=	RGB(255, 255, 255)
-	dw_Seleccion.Object.codigo.BackGround.Color	=	553648127
-	
-	dw_Seleccion.Reset()
-	
-	dw_Seleccion.InsertRow(0)
-ELSE
-	SetNull(Codigo)
-	SetNull(Nombre)
-	
-	cbx_Todos.Checked		=	False
-	cbx_Consolida.Checked	=	False
-	cbx_Consolida.Enabled	=	False
-	dw_Seleccion.Enabled	=	True
-	
-	dw_Seleccion.Object.codigo[1]						=	Codigo
-	dw_Seleccion.Object.Codigo.Color					=	0
-	dw_Seleccion.Object.codigo.BackGround.Color	=	RGB(255, 255, 255)
-END IF
-end subroutine
-
-public subroutine bloquear (boolean ab_opcion);If ab_opcion Then
+public subroutine of_bloquear (boolean ab_opcion);If ab_opcion Then
 	dw_Seleccion.Enabled	= False
 	dw_Seleccion.Object.Codigo.Color					=	RGB(255, 255, 255)
 	dw_Seleccion.Object.Codigo.BackGround.Color	=	553648127
@@ -101,12 +55,12 @@ Else
 End If
 end subroutine
 
-public function boolean inicia (integer ai_codigo);Integer	li_Nula
+public function boolean of_inicia (integer ai_codigo);Integer	li_Nula
 Boolean	lb_Retorno = False
 
 SetNull(li_Nula)
 
-If iuo_Codigo.Existe(ai_Codigo, '*', False, sqlca) Then
+If iuo_Codigo.of_Existe(ai_Codigo, '*', False, sqlca) Then
 	Codigo	=	iuo_Codigo.Codigo
 	Nombre	=	iuo_Codigo.Nombre
 	Version	=	iuo_Codigo.Version1
@@ -120,12 +74,57 @@ End If
 Return lb_Retorno 
 end function
 
-public subroutine limpiardatos ();String	ls_Nula
+public subroutine of_limpiardatos ();String	ls_Nula
 
 SetNull(ls_Nula)
 
 dw_Seleccion.SetItem(1, "codigo", Long(ls_Nula))
 Codigo = Long(ls_Nula)
+end subroutine
+public subroutine of_todos (boolean ab_todos);If ab_Todos Then
+	Codigo						=	-1
+	Nombre						=	'Todos'
+	cbx_Todos.Checked		=	True
+	cbx_Consolida.Enabled	=	True
+	dw_Seleccion.Enabled	=	False
+	
+	dw_Seleccion.Object.Codigo.Color					=	RGB(255, 255, 255)
+	dw_Seleccion.Object.codigo.BackGround.Color	=	553648127
+	
+	dw_Seleccion.Reset()
+	
+	dw_Seleccion.InsertRow(0)
+Else
+	SetNull(Codigo)
+	SetNull(Nombre)
+	
+	cbx_Todos.Checked		=	False
+	cbx_Consolida.Checked	=	False
+	cbx_Consolida.Enabled	=	False
+	dw_Seleccion.Enabled	=	True
+	
+	dw_Seleccion.Object.codigo[1]						=	Codigo
+	dw_Seleccion.Object.Codigo.Color					=	0
+	dw_Seleccion.Object.codigo.BackGround.Color	=	RGB(255, 255, 255)
+End If
+end subroutine
+
+public subroutine of_seleccion (boolean ab_todos, boolean ab_consolida);cbx_Todos.Visible		=	ab_Todos
+cbx_Consolida.Visible	=	ab_Consolida
+ 
+If Not ab_Todos AND Not ab_Consolida Then
+	dw_Seleccion.y				=	0
+	dw_Seleccion.Enabled	=	True
+	
+	dw_Seleccion.Object.Codigo.Color					=	0
+	dw_Seleccion.Object.codigo.BackGround.Color	=	RGB(255, 255, 255)
+Else
+	dw_Seleccion.y				=	84
+	dw_Seleccion.Enabled	=	False
+	
+	dw_Seleccion.Object.Codigo.Color					=	RGB(255, 255, 255)
+	dw_Seleccion.Object.codigo.BackGround.Color	=	553648127
+End If
 end subroutine
 
 on uo_seleccion_sistemas.create
@@ -155,12 +154,12 @@ cbx_consolida.FaceName	=	"Tahoma"
 cbx_Todos.TextColor		=	RGB(255,255,255)
 cbx_consolida.TextColor	=	RGB(255,255,255)
 
-IF	idwc_Seleccion.Retrieve() = 0 THEN
+If	idwc_Seleccion.Retrieve() = 0 Then
 	MessageBox("Atención", "No existen Sistemas en tabla respectiva")
 	
 	SetNull(Codigo)
 	SetNull(Nombre)
-ELSE
+Else
 	idwc_Seleccion.SetSort("sist_nombre A")
 	idwc_Seleccion.Sort()
 	
@@ -173,8 +172,8 @@ ELSE
 	Nombre		=	'Todas'
 	iuo_Codigo 	=	Create uo_Sistemas
 	
-	This.Seleccion(True, True)
-END IF
+	This.of_Seleccion(True, True)
+End If
 end event
 
 type cbx_consolida from checkbox within uo_seleccion_sistemas
@@ -193,15 +192,15 @@ long backcolor = 553648127
 string text = "Consolidado"
 end type
 
-event clicked;IF This.Checked THEN
+event clicked;If This.Checked Then
 	Codigo	=	-9
 	Nombre	=	'Consolidada'
-ELSE
+Else
 	Codigo	=	-1
 	Nombre	=	'Todas'
-END IF
+End If
 Parent.TriggerEvent("ue_cambio")
-end event
+End event
 
 type cbx_todos from checkbox within uo_seleccion_sistemas
 integer width = 315
@@ -219,7 +218,7 @@ string text = "Todos"
 boolean checked = true
 end type
 
-event clicked;Todos(This.Checked)
+event clicked;of_Todos(This.Checked)
 Parent.TriggerEvent("ue_cambio")
 end event
 
@@ -238,19 +237,19 @@ event itemchanged;Integer	li_Nula
 
 SetNull(li_Nula)
 
-IF iuo_Codigo.Existe(Integer(Data),'*', True, sqlca) THEN
+If iuo_Codigo.of_Existe(Integer(Data),'*', True, sqlca) Then
 	Codigo	=	iuo_Codigo.codigo
 	Nombre	=	iuo_Codigo.nombre
 	Version	=	iuo_Codigo.Version1
-ELSE
+Else
 	This.SetItem(1, "codigo", li_Nula)
 
-	RETURN 1
-END IF
+	Return 1
+End If
 
 Parent.TriggerEvent("ue_cambio")
 end event
 
 event itemerror;Return 1
-end event
+End event
 

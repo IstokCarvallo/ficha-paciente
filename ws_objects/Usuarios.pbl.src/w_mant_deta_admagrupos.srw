@@ -158,7 +158,7 @@ CHOOSE CASE Columna
 			istr_mant.argumento[2] = String(dw_1.Object.grpo_codigo[1])
 			istr_mant.argumento[3] = dw_1.Object.grpo_nombre[1]
 			
-			IF luo_Usuarios.Existe(Data,True,Sqlca) THEN
+			IF luo_Usuarios.of_Existe(Data,True,Sqlca) THEN
 				dw_1.SetItem(il_fila, "usua_nombre", luo_Usuarios.Nombre)
 			END IF
 		END IF		

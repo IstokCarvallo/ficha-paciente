@@ -272,7 +272,7 @@ ls_Columna	=	dwo.Name
 CHOOSE CASE ls_Columna	
 	CASE "adsu_codigo"		
 		istr_mant.Argumento[1]	=	Data
-		IF iuo_Sucursal.Existe(Integer(Data), False, sqlca) THEN
+		IF iuo_Sucursal.of_Existe(Integer(Data), False, sqlca) THEN
 			Parent.TriggerEvent("ue_recuperadatos")
 		END IF
 	

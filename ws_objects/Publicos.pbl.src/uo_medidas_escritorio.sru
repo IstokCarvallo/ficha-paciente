@@ -29,10 +29,10 @@ Long			il_top, il_left, il_right, il_bottom
 end variables
 
 forward prototypes
-public subroutine cargamedidas ()
+public subroutine of_cargamedidas ()
 end prototypes
 
-public subroutine cargamedidas ();CONSTANT long SPI_GETWORKAREA = 48
+public subroutine of_cargamedidas ();CONSTANT long SPI_GETWORKAREA = 48
 boolean 	lb_Ret
 str_rect	lstr_Rect
 

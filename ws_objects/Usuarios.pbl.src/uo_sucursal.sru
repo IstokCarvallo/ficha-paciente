@@ -15,11 +15,10 @@ String	is_Nombre, is_Abreviacion
 end variables
 
 forward prototypes
-public function boolean existe (integer ai_codigo, boolean ab_mensaje, transaction at_transaccion)
-public function boolean existesuc (integer ai_empresa, integer ai_codigo, boolean ab_mensaje, transaction at_transaccion)
+public function boolean of_existe (integer ai_codigo, boolean ab_mensaje, transaction at_transaccion)
 end prototypes
 
-public function boolean existe (integer ai_codigo, boolean ab_mensaje, transaction at_transaccion);Boolean	lb_Retorno = True
+public function boolean of_existe (integer ai_codigo, boolean ab_mensaje, transaction at_transaccion);Boolean	lb_Retorno = True
 
 SELECT	adsu_codigo, adsu_nombre, adsu_abrevi
 	INTO	:ii_Codigo, :is_Nombre, :is_Abreviacion
@@ -40,29 +39,6 @@ ElseIf at_Transaccion.SQLCode = 100 Then
 End If
 
 Return lb_Retorno
-end function
-
-public function boolean existesuc (integer ai_empresa, integer ai_codigo, boolean ab_mensaje, transaction at_transaccion);Boolean	lb_Retorno = True
-
-SELECT	adsu_codigo, adsu_nombre, adsu_abrevi
-	INTO	:ii_Codigo, :is_Nombre, :is_Abreviacion
-	FROM	dbo.sucursales
-	WHERE	empr_codigo = :ai_Empresa
-	AND		adsu_codigo	=	:ai_Codigo
-	USING	at_Transaccion;
-
-IF at_Transaccion.SQLCode = -1 THEN
-	F_ErrorBaseDatos(at_Transaccion, "Lectura de Tabla Sucursales")
-
-	lb_Retorno	=	False
-ELSEIF at_Transaccion.SQLCode = 100 THEN
-	IF ab_Mensaje THEN
-		MessageBox("Atención", "Código de Sucursal (" + String(ai_Codigo, '00') + "), no ha sido creado en tabla respectiva.~r~rIngrese o seleccione otro(s) Código(s).")
-	END IF
-	lb_Retorno	=	False
-END IF
-
-RETURN lb_Retorno
 end function
 
 on uo_sucursal.create
