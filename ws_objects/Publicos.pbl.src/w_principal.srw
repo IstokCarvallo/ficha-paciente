@@ -207,70 +207,9 @@ This.ToolBarVisible	=	False
 This.Icon					=	gstr_apl.Icono
 ds_acceso				=	CREATE DataStore
 
-IF gstr_apl.Launcher THEN
-	dw_2						=	CREATE DataStore
-	it_trans					=	Create Transaction
-	
-	it_trans.LogId			=	sqlca.LogId
-	it_trans.UserId			=	sqlca.UserId		
-	it_trans.LogPass		=	sqlca.LogPass		
-	it_trans.DbPass			=	sqlca.DbPass		
-	it_trans.SQLCode		=	sqlca.SQLCode		
-	it_trans.Dbms			=	sqlca.Dbms			
-	it_trans.ServerName	=	sqlca.ServerName	
-	it_trans.DataBase		=	sqlca.DataBase		
-	
-	ls_odbc	=	Mid(sqlca.DbParm, 20, pos(sqlca.DbParm, ";") - 20)
-	
-	RegistryGet("HKEY_CURRENT_USER\Software\ODBC\ODBC.INI\" + ls_odbc, 'DataBaseName', RegString!, ls_paso)
-	RegistrySet("HKEY_CURRENT_USER\Software\ODBC\ODBC.INI\" + ls_odbc, "DataBaseName", RegString!, "AdmSistemas")
-	
-	
-	it_trans.DbParm		=	"ConnectString='DSN=" + ls_odbc + &
-									";UID=" + it_trans.UserId + &
-									";PWD=" + it_trans.DbPass + "',DisableBind=1," + &
-									"ConnectOption='SQL_DRIVER_CONNECT,SQL_DRIVER_NOPROMPT'" + &
-									"// ;PBUseProcOwner = " + '"Yes"'
-		
-	DO
-		CONNECT Using it_trans ; 
-	
-		IF it_trans.SQLCode <> 0 THEN
-			IF it_trans.SQLDBCode = -103 THEN
-				IF MessageBox("Error de Conexión", "Usuario o Password ingresado está incorrecto.", &
-									Information!, RetryCancel!) = 1 THEN
-				END IF
-				RegistrySet("HKEY_CURRENT_USER\Software\ODBC\ODBC.INI\" + ls_odbc, "DataBaseName", RegString!, ls_paso)
-				RETURN
-			ELSEIF it_trans.SQLDBCode = -102 THEN
-				MessageBox("Error de Conexión", "Demasiados Usuarios conectados a la Base.~r" + &
-								"Consulte con Administrador", StopSign!, Ok!)
-					RegistrySet("HKEY_CURRENT_USER\Software\ODBC\ODBC.INI\" + ls_odbc, "DataBaseName", RegString!, ls_paso)
-					RETURN
-			ELSEIF it_trans.SQLDBCode <> 0 THEN
-			//	F_ErrorBaseDatos(it_trans, This.Title)
-				RegistrySet("HKEY_CURRENT_USER\Software\ODBC\ODBC.INI\" + ls_odbc, "DataBaseName", RegString!, ls_paso)
-				RETURN
-			END IF
-		END IF
-		
-	LOOP UNTIL it_trans.SQLCode <> 0
-	
-	ds_acceso.DataObject	=	"dw_mues_admausuaropcio_sucur"
-	dw_2.DataObject		=	"dw_mant_admamenusistema"
-	
-	ds_acceso.SetTransObject(it_trans)
-	dw_2.SetTransObject(it_trans)
-	
-	RegistrySet("HKEY_CURRENT_USER\Software\ODBC\ODBC.INI\" + ls_odbc, "DataBaseName", RegString!, ls_paso)
-	This.TriggerEvent("ue_habilitamenu")
-	
-	Disconnect using it_trans;
-ELSE 
-	ds_acceso.DataObject	=	"dw_mues_admausuaropcio"
-	ds_acceso.SetTransObject(sqlca)
-	This.TriggerEvent("ue_habilitamenu")
-END IF
+ds_acceso.DataObject	=	"dw_mues_admausuaropcio"
+ds_acceso.SetTransObject(sqlca)
+This.TriggerEvent("ue_habilitamenu")
 
 // Fondo de Pantalla
 OpenSheet(w_fondo, w_main)

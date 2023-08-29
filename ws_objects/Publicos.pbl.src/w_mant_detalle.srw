@@ -1,24 +1,24 @@
 ﻿$PBExportHeader$w_mant_detalle.srw
 forward
 global type w_mant_detalle from window
-End type
+end type
 type pb_ultimo from picturebutton within w_mant_detalle
-End type
+end type
 type pb_siguiente from picturebutton within w_mant_detalle
-End type
+end type
 type pb_anterior from picturebutton within w_mant_detalle
-End type
+end type
 type pb_primero from picturebutton within w_mant_detalle
-End type
+end type
 type pb_cancela from picturebutton within w_mant_detalle
-End type
+end type
 type pb_acepta from picturebutton within w_mant_detalle
-End type
+end type
 type pb_salir from picturebutton within w_mant_detalle
-End type
+end type
 type dw_1 from uo_dw within w_mant_detalle
-End type
-End forward
+end type
+end forward
 
 global type w_mant_detalle from window
 integer x = 302
@@ -49,7 +49,7 @@ pb_cancela pb_cancela
 pb_acepta pb_acepta
 pb_salir pb_salir
 dw_1 dw_1
-End type
+end type
 global w_mant_detalle w_mant_detalle
 
 type variables
@@ -129,6 +129,8 @@ Else
 		dw_1.Enabled		=	False
 		pb_Salir.Enabled	=	False
 		This.Title			=	"ELIMINACION DE REGISTRO"
+		pb_acepta.PictureName = "\Repos\Resources\BTN\Borrar.png"
+		pb_acepta.DisabledName = "\Repos\Resources\BTN\Borrar-bn.png"
 	ElseIf istr_mant.Solo_Consulta Then
 		dw_1.Enabled			=	False
 		pb_Acepta.Enabled		=	False
@@ -139,7 +141,7 @@ Else
 		This.Title			=	"MANTENCION DE REGISTRO"
 	End If
 End If
-End event
+end event
 
 event ue_deshace;ib_deshace = True
 End event
@@ -221,7 +223,7 @@ this.pb_cancela,&
 this.pb_acepta,&
 this.pb_salir,&
 this.dw_1}
-End on
+end on
 
 on w_mant_detalle.destroy
 destroy(this.pb_ultimo)
@@ -232,7 +234,7 @@ destroy(this.pb_cancela)
 destroy(this.pb_acepta)
 destroy(this.pb_salir)
 destroy(this.dw_1)
-End on
+end on
 
 event resize;Integer		li_posic_x, li_posic_y, li_Ancho = 300, li_Alto = 245, li_Siguiente = 255
 
@@ -280,7 +282,7 @@ string picturename = "\Repos\Resources\BTN\Ultimo.png"
 string disabledname = "\Repos\Resources\BTN\Ultimo-bn.png"
 alignment htextalign = left!
 string powertiptext = "Final"
-End type
+end type
 
 event clicked;dw_1.SetRedraw(False)
 
@@ -312,7 +314,7 @@ string picturename = "\Repos\Resources\BTN\Siguiente.png"
 string disabledname = "\Repos\Resources\BTN\Siguiente-bn.png"
 alignment htextalign = left!
 string powertiptext = "Siguiente"
-End type
+end type
 
 event clicked;If il_fila <= dw_1.RowCount() Then
 	dw_1.SetRedraw(False)
@@ -346,7 +348,7 @@ string picturename = "\Repos\Resources\BTN\Anterior.png"
 string disabledname = "\Repos\Resources\BTN\Anterior-bn.png"
 alignment htextalign = left!
 string powertiptext = "Anterior"
-End type
+end type
 
 event clicked;If il_fila > 1 Then
 	dw_1.SetRedraw(False)
@@ -380,7 +382,7 @@ string picturename = "\Repos\Resources\BTN\Primero.png"
 string disabledname = "\Repos\Resources\BTN\Primero-bn.png"
 alignment htextalign = left!
 string powertiptext = "Inicio"
-End type
+end type
 
 event clicked;dw_1.SetRedraw(False)
 
@@ -414,7 +416,7 @@ string disabledname = "\Repos\Resources\BTN\Cancelar-bn.png"
 alignment htextalign = left!
 string powertiptext = "Rechazar Acción"
 long backcolor = 553648127
-End type
+end type
 
 event clicked;istr_mant.respuesta = 2
 
@@ -440,7 +442,7 @@ string disabledname = "\Repos\Resources\BTN\Aceptar-bn.png"
 alignment htextalign = left!
 string powertiptext = "Aceptar Acción"
 long backcolor = 553648127
-End type
+end type
 
 event clicked;istr_mant.respuesta = 1
 
@@ -475,7 +477,7 @@ string disabledname = "\Repos\Resources\BTN\Apagar-bn.png"
 alignment htextalign = left!
 string powertiptext = "Salir"
 long backcolor = 553648127
-End type
+end type
 
 event clicked;istr_mant.respuesta = 0
 
@@ -490,7 +492,7 @@ integer height = 680
 integer taborder = 10
 boolean vscrollbar = false
 boolean border = false
-End type
+end type
 
 event itemerror;Return 1
 End event

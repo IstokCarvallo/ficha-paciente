@@ -170,17 +170,9 @@ end function
 public subroutine habilitaencab (boolean habilita);IF habilita THEN
 	dw_2.Object.grpo_codigo.Protect					=	0
 	dw_2.Object.grpo_nombre.Protect					=	0
-	dw_2.Object.grpo_codigo.Color					=	0
-	dw_2.Object.grpo_nombre.Color					=	0
-	dw_2.Object.grpo_nombre.BackGround.Color	=	RGB(255,255,255)
-	dw_2.Object.grpo_codigo.BackGround.Color		=	RGB(255,255,255)
 ELSE
 	dw_2.Object.grpo_codigo.Protect					=	1
 	dw_2.Object.grpo_nombre.Protect					=	1
-	dw_2.Object.grpo_codigo.Color					=	RGB(255,255,255)
-	dw_2.Object.grpo_nombre.Color					=	RGB(255,255,255)
-	dw_2.Object.grpo_codigo.BackGround.Color		=	553628127
-	dw_2.Object.grpo_nombre.BackGround.Color	=	553628127
 END IF
 end subroutine
 
@@ -369,8 +361,8 @@ dw_2.SetColumn(1)
 
 end event
 
-event ue_nuevo_detalle();call super::ue_nuevo_detalle;istr_mant.borra			=	False
-istr_mant.agrega			=	True
+event ue_nuevo_detalle;call super::ue_nuevo_detalle;istr_mant.Borra			=	False
+istr_mant.Agrega		=	True
 
 OpenWithParm(iw_mantencion, istr_mant)
 

@@ -96,8 +96,8 @@ If Message.DoubleParm <> 1 Then
 	Halt
 	Return
 Else
-	If AccesoSistemaValido() Then
-	//	ParEmpresa()
+	If f_AccesoSistemaValido() Then
+		f_ParEmpresa()
 		Open(w_main)
 	Else
 		Halt

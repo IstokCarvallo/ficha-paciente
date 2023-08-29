@@ -1,20 +1,16 @@
-﻿$PBExportHeader$accesosistemavalido.srf
+﻿$PBExportHeader$f_accesosistemavalido.srf
 $PBExportComments$Valida Acceso a Sistema del Usuario por medio del Grupo al que Pertenece.
-global type accesosistemavalido from function_object
+global type f_accesosistemavalido from function_object
 end type
 
 forward prototypes
-global function boolean accesosistemavalido ()
+global function boolean f_accesosistemavalido ()
 end prototypes
 
-global function boolean accesosistemavalido ();Boolean		lb_Retorno
+global function boolean f_accesosistemavalido ();Boolean		lb_Retorno
 
 lb_Retorno	= True
 
-
-/*
-Sin lanzador
-*/
 SELECT	usua_nombre, isnull(usua_admini,1), IsNull(adsu_codigo, 1)
 	INTO	:gstr_us.NombreUsuario, :gstr_us.Administrador, :gstr_us.sucursal
 	FROM	dbo.usuarios

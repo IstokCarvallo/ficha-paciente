@@ -1,13 +1,13 @@
-﻿$PBExportHeader$opcionsoloconsulta.srf
+﻿$PBExportHeader$f_opcionsoloconsulta.srf
 $PBExportComments$Valida si Opción del Menú es de Sólo Consulta para el usuario activo.
-global type opcionsoloconsulta from function_object
+global type f_opcionsoloconsulta from function_object
 end type
 
 forward prototypes
-global function boolean opcionsoloconsulta ()
+global function boolean f_opcionsoloconsulta ()
 end prototypes
 
-global function boolean opcionsoloconsulta ();Boolean	lb_Retorno
+global function boolean f_opcionsoloconsulta ();Boolean	lb_Retorno
 Integer	li_SoloConsulta
 String	ls_Usuario
 

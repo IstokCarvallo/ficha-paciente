@@ -54,7 +54,7 @@ istr_mant.dw	= dw_1
 buscar	= "Código:usua_codigo,Descripción:apac_desapl"
 ordenar	= "Código:usua_codigo,FechaAcceso:apac_fechaa,Descripcion:apac_desapl"
 
-GrabaAccesoAplicacion(True, id_FechaAcceso, it_HoraAcceso, This.Title, "Acceso a Aplicación", 1)
+f_GrabaAccesoAplicacion(True, id_FechaAcceso, it_HoraAcceso, This.Title, "Acceso a Aplicación", 1)
 
 em_timer.SetFocus()
 dw_1.Retrieve()
@@ -84,8 +84,6 @@ end type
 type pb_lectura from w_mant_tabla`pb_lectura within w_mant_mues_admaaplicacces
 integer x = 3529
 integer y = 176
-string picturename = "\Repos\Resources\BTN\Busqueda.png"
-string disabledname = "\Repos\Resources\BTN\Busqueda-bn.png"
 end type
 
 type pb_nuevo from w_mant_tabla`pb_nuevo within w_mant_mues_admaaplicacces
@@ -127,8 +125,6 @@ type pb_salir from w_mant_tabla`pb_salir within w_mant_mues_admaaplicacces
 integer x = 3506
 integer y = 1524
 integer taborder = 90
-string picturename = "\Repos\Resources\BTN\Apagar.png"
-string disabledname = "\Repos\Resources\BTN\Apagar-bn.png"
 end type
 
 type em_timer from editmask within w_mant_mues_admaaplicacces

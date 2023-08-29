@@ -2,7 +2,28 @@
 forward
 global type m_principal from m_sys_frame
 end type
+type m_isapre from menu within m_aplicacion
+end type
+type m_formapago from menu within m_aplicacion
+end type
+type m_serviciosemergencia from menu within m_aplicacion
+end type
+type m_cuidadoraparticular from menu within m_aplicacion
+end type
+type m_0 from menu within m_aplicacion
+end type
+type m_parametrosempresa from menu within m_aplicacion
+end type
+type m_aplicacion from m_sys_frame`m_aplicacion within m_principal
+m_isapre m_isapre
+m_formapago m_formapago
+m_serviciosemergencia m_serviciosemergencia
+m_cuidadoraparticular m_cuidadoraparticular
+m_0 m_0
+m_parametrosempresa m_parametrosempresa
+end type
 end forward
+
 global type m_principal from m_sys_frame
 end type
 global m_principal m_principal
@@ -314,14 +335,38 @@ call super::destroy
 end on
 
 type m_aplicacion from m_sys_frame`m_aplicacion within m_principal
+m_isapre m_isapre
+m_formapago m_formapago
+m_serviciosemergencia m_serviciosemergencia
+m_cuidadoraparticular m_cuidadoraparticular
+m_0 m_0
+m_parametrosempresa m_parametrosempresa
 end type
 
 on m_aplicacion.create
 call super::create
+this.m_isapre=create m_isapre
+this.m_formapago=create m_formapago
+this.m_serviciosemergencia=create m_serviciosemergencia
+this.m_cuidadoraparticular=create m_cuidadoraparticular
+this.m_0=create m_0
+this.m_parametrosempresa=create m_parametrosempresa
+this.Item[UpperBound(this.Item)+1]=this.m_isapre
+this.Item[UpperBound(this.Item)+1]=this.m_formapago
+this.Item[UpperBound(this.Item)+1]=this.m_serviciosemergencia
+this.Item[UpperBound(this.Item)+1]=this.m_cuidadoraparticular
+this.Item[UpperBound(this.Item)+1]=this.m_0
+this.Item[UpperBound(this.Item)+1]=this.m_parametrosempresa
 end on
 
 on m_aplicacion.destroy
 call super::destroy
+destroy(this.m_isapre)
+destroy(this.m_formapago)
+destroy(this.m_serviciosemergencia)
+destroy(this.m_cuidadoraparticular)
+destroy(this.m_0)
+destroy(this.m_parametrosempresa)
 end on
 
 type m_movimientos from m_sys_frame`m_movimientos within m_principal
@@ -640,6 +685,200 @@ call super::create
 end on
 
 on m_about.destroy
+call super::destroy
+end on
+
+type m_isapre from menu within m_aplicacion
+end type
+
+event clicked;SetPointer(HourGlass!)
+gstr_us.OpcionActiva	=	This.ClassName()
+
+OpenSheet(w_mant_mues_isapre, w_main, ii_Columna, Original!)
+
+end event
+
+on m_isapre.create
+call super::create
+this.text = "Isapre"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_isapre.destroy
+call super::destroy
+end on
+
+type m_formapago from menu within m_aplicacion
+end type
+
+event clicked;SetPointer(HourGlass!)
+gstr_us.OpcionActiva	=	This.ClassName()
+
+OpenSheet(w_mant_mues_formapago, w_main, ii_Columna, Original!)
+end event
+
+on m_formapago.create
+call super::create
+this.text = "Forma Pago"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_formapago.destroy
+call super::destroy
+end on
+
+type m_serviciosemergencia from menu within m_aplicacion
+end type
+
+event clicked;SetPointer(HourGlass!)
+gstr_us.OpcionActiva	=	This.ClassName()
+
+OpenSheet(w_mant_mues_servemergencia, w_main, ii_Columna, Original!)
+end event
+
+on m_serviciosemergencia.create
+call super::create
+this.text = "Servicios Emergencia"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_serviciosemergencia.destroy
+call super::destroy
+end on
+
+type m_cuidadoraparticular from menu within m_aplicacion
+end type
+
+event clicked;SetPointer(HourGlass!)
+gstr_us.OpcionActiva	=	This.ClassName()
+
+OpenSheet(w_mant_mues_cuidadora, w_main, ii_Columna, Original!)
+end event
+
+on m_cuidadoraparticular.create
+call super::create
+this.text = "Cuidadora Particular"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_cuidadoraparticular.destroy
+call super::destroy
+end on
+
+type m_0 from menu within m_aplicacion
+end type
+
+on m_0.create
+call super::create
+this.text = "-"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_0.destroy
+call super::destroy
+end on
+
+type m_parametrosempresa from menu within m_aplicacion
+end type
+
+event clicked;SetPointer(HourGlass!)
+gstr_us.OpcionActiva	=	This.ClassName()
+
+OpenSheet(w_mant_parempresa, w_main, ii_Columna, Original!)
+
+end event
+
+on m_parametrosempresa.create
+call super::create
+this.text = "Parametros Empresa"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_parametrosempresa.destroy
 call super::destroy
 end on
 

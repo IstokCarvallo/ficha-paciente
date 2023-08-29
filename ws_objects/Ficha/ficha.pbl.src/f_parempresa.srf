@@ -1,17 +1,17 @@
-﻿$PBExportHeader$parempresa.srf
+﻿$PBExportHeader$f_parempresa.srf
 $PBExportComments$Lectura de Parámetros de Emporesa
-global type parempresa from function_object
+global type f_parempresa from function_object
 end type
 
 forward prototypes
-global subroutine parempresa ()
+global subroutine f_parempresa ()
 end prototypes
 
-global subroutine parempresa ();SELECT	empr_rutemp, empr_razsoc, empr_nombre,empr_direcc, empr_comuna, empr_ciudad,
-			empr_nrotel, empr_nrofax, empr_giroem,empr_repleg, empr_rutrle
+global subroutine f_parempresa ();SELECT	empr_rutemp, empr_razsoc, empr_nombre,empr_direcc, empr_comuna, 
+			empr_ciudad, empr_nrotel, empr_giroem,empr_repleg, empr_rutrle
 	INTO	:gstr_parempresa.empr_rutemp, :gstr_parempresa.empr_razsoc, :gstr_parempresa.empr_nombre,
 			:gstr_parempresa.empr_direcc, :gstr_parempresa.empr_comuna, :gstr_parempresa.empr_ciudad,
-			:gstr_parempresa.empr_nrotel, :gstr_parempresa.empr_nrofax, :gstr_parempresa.empr_giroem,
+			:gstr_parempresa.empr_nrotel, :gstr_parempresa.empr_giroem,
 			:gstr_parempresa.empr_repleg, :gstr_parempresa.empr_rutrle
 	FROM	dbo.parempresa
 	Using SQLCA;

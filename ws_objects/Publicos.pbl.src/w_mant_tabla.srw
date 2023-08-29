@@ -464,11 +464,10 @@ dw_1.SetRowFocusIndicator(Hand!)
 dw_1.Modify("DataWindow.Footer.Height = 110")
 
 istr_mant.dw						=	dw_1
-istr_mant.UsuarioSoloConsulta	=	OpcionSoloConsulta()
+istr_mant.UsuarioSoloConsulta	=	f_OpcionSoloConsulta()
 istr_mant.Solo_Consulta			=	istr_mant.UsuarioSoloConsulta
 
-GrabaAccesoAplicacion(True, id_FechaAcceso, it_HoraAcceso, &
-							This.Title, "Acceso a Aplicación", 1)
+f_GrabaAccesoAplicacion(True, id_FechaAcceso, it_HoraAcceso, This.Title, "Acceso a Aplicación", 1)
 								
 /* La asignación a las siguientes variables no se hereda, debe ser adicional en ventana descendiente */
 buscar	= "Código:Ncodigo,Descripción:Sconcepto"
@@ -604,7 +603,7 @@ IF li_vta = 1 AND gs_Ambiente = "Windows" THEN
 	im_menu.Item[7].Visible					= False
 END IF
 
-GrabaAccesoAplicacion(False, id_FechaAcceso, it_HoraAcceso, "", "", 0)
+f_GrabaAccesoAplicacion(False, id_FechaAcceso, it_HoraAcceso, "", "", 0)
 end event
 
 event mousemove;w_main.SetMicroHelp("Ventana : " + ClassName())

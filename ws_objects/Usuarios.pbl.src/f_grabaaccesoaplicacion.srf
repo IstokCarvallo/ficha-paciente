@@ -1,13 +1,13 @@
-﻿$PBExportHeader$grabaaccesoaplicacion.srf
+﻿$PBExportHeader$f_grabaaccesoaplicacion.srf
 $PBExportComments$Actualiza tabla de Accesos por Usuario a Sistema.
-global type grabaaccesoaplicacion from function_object
+global type f_grabaaccesoaplicacion from function_object
 end type
 
 forward prototypes
-global subroutine grabaaccesoaplicacion (boolean ab_nuevo, ref date ad_fechaacceso, ref time at_horaacceso, string as_aplicacion, string as_accion, integer ai_estado)
+global subroutine f_grabaaccesoaplicacion (boolean ab_nuevo, ref date ad_fechaacceso, ref time at_horaacceso, string as_aplicacion, string as_accion, integer ai_estado)
 end prototypes
 
-global subroutine grabaaccesoaplicacion (boolean ab_nuevo, ref date ad_fechaacceso, ref time at_horaacceso, string as_aplicacion, string as_accion, integer ai_estado);Integer	li_Contador
+global subroutine f_grabaaccesoaplicacion (boolean ab_nuevo, ref date ad_fechaacceso, ref time at_horaacceso, string as_aplicacion, string as_accion, integer ai_estado);Integer	li_Contador
 DateTime	ldt_HoraAcceso
 
 If ab_Nuevo Then

@@ -3,5 +3,5 @@ Save Format v3.0(19990112)
 @end;
 appname "ficha";
 applib "Ficha.pbl";
-LibList "Ficha.pbl;..\\Publicos.pbl;..\\Usuarios.pbl";
+LibList "Ficha.pbl;Ficha01.pbl;..\\Publicos.pbl;..\\Usuarios.pbl";
 type "pb";

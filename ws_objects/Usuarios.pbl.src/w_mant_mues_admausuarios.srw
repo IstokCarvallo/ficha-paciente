@@ -29,7 +29,7 @@ public function boolean existesucursal (integer campo); long li_suc
 
  		SELECT count(*)
 		INTO	:li_suc
-    	FROM dbo.admaunidadadmini
+    	FROM dbo.unidadadmini
 	 	WHERE adsu_codigo = :campo;
 		
 IF sqlca.SQLCode = -1 THEN
@@ -50,7 +50,7 @@ public function boolean existeunidad (integer sucursal, integer uniadmi); Intege
  		SELECT	adun_codigo, adun_nombre
 			INTO 	:li_uadm,
 					:ls_nombre
-			FROM	dbo.admaunidadadmini
+			FROM	dbo.unidadadmini
 			WHERE adsu_codigo = :Sucursal
 			AND   adun_codigo = :UniAdmi;
 		
